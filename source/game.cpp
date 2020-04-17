@@ -2,6 +2,9 @@
 #include <Engine/Mesh.hpp>
 #include <Engine/Shader.hpp>
 
+#include <GLEW/glew.h>
+#include <GLFW/glfw3.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -23,13 +26,13 @@ int main(){
     if(gameWindow.initialise()==1){
         return 1;
     }
-
     object->CreateMesh(vertices,9,3);
     object->bindVAO();
     program->CreateFromFiles("Shaders/vertex.glsl","Shaders/fragment.glsl");
     glBindVertexArray(0);
     glm::mat4 model(1.0f);
-    glm::mat4 projection = glm::ortho(0.0f,800.0f,600.0f,0.0f);
+    glm::mat4 projection = glm::ortho(-1.0f,1.0f,-1.0f,1.0f,0.0f,-0.0000001f);
+
     program->UseShader();
     glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
@@ -44,13 +47,11 @@ int main(){
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        program->UseShader();
         object->RenderMesh(GL_TRIANGLES);
-        
 
         gameWindow.swapBuffers();
     }
-    glUseProgram(0);
-
+     glUseProgram(0);
+     
     return 0;
 }
