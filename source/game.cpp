@@ -26,7 +26,7 @@ int main(){
 
     object->CreateMesh(vertices,9,3);
     object->bindVAO();
-    program->CreateFromFiles("/Users/rto/Desktop/2DPlatformer/Shaders/vertex.glsl","/Users/rto/Desktop/2DPlatformer/Shaders/fragment.glsl");
+    program->CreateFromFiles("Shaders/vertex.glsl","Shaders/fragment.glsl");
     glBindVertexArray(0);
     // glm::mat4 model(1.0f);
     // glm:: mat4 projection = glm::ortho(0.0f,800.0f,600.0f,0.0f);
