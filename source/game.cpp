@@ -28,10 +28,11 @@ int main(){
     object->bindVAO();
     program->CreateFromFiles("Shaders/vertex.glsl","Shaders/fragment.glsl");
     glBindVertexArray(0);
-    // glm::mat4 model(1.0f);
-    // glm:: mat4 projection = glm::ortho(0.0f,800.0f,600.0f,0.0f);
-    // glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
-    // glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
+    glm::mat4 model(1.0f);
+    glm::mat4 projection = glm::ortho(0.0f,800.0f,600.0f,0.0f);
+    program->UseShader();
+    glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
+    glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
 
     while(!gameWindow.getShouldClose()){
         GLfloat now = glfwGetTime();
@@ -45,10 +46,11 @@ int main(){
 
         program->UseShader();
         object->RenderMesh(GL_TRIANGLES);
-        glUseProgram(0);
+        
 
         gameWindow.swapBuffers();
     }
+    glUseProgram(0);
 
     return 0;
 }

@@ -4,7 +4,6 @@ mac : WindowGen.o Mesh.o Shader.o game.o
 linux: WindowGen.o Mesh.o Shader.o game.o
 	g++ -std=c++17 ./build/game.o ./build/WindowGen.o ./build/Mesh.o ./build/Shader.o -lGL -lGLEW -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor -o ./build/game
 WindowGen.o: ./source/WindowGen.cpp
-	mkdir build
 	g++ -std=c++17 -I ./include -o ./build/WindowGen.o -c ./source/WindowGen.cpp
 Mesh.o: ./source/Mesh.cpp
 	g++ -std=c++17 -I ./include -o ./build/Mesh.o -c ./source/Mesh.cpp
@@ -13,4 +12,4 @@ Shader.o: ./source/Shader.cpp
 game.o: ./source/game.cpp
 	g++ -std=c++17 -I ./include -o ./build/game.o -c ./source/game.cpp
 clean:
-	rm -r ./build
+	rm ./build/*
