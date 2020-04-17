@@ -1,8 +1,8 @@
 #pragma once
 
-#include<iostream>
-#include<GLEW/glew.h>
-#include<GLFW/glfw3.h>
+#include <iostream>
+#include <GLEW/glew.h>
+#include <GLFW/glfw3.h>
 
 class Window{
     public:
@@ -16,6 +16,8 @@ class Window{
 
         bool getShouldClose(){ return glfwWindowShouldClose(mainWindow); }
 
+        bool* getsKeys() { return keys; }
+
         void swapBuffers(){ glfwSwapBuffers(mainWindow); }
 
         ~Window();
@@ -23,4 +25,9 @@ class Window{
     private:
         GLFWwindow* mainWindow;
         GLint width, height ,bufferWidth, bufferHeight;
+        
+        bool keys[1024];
+
+        void createCallbacks();
+	    static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);
 };
