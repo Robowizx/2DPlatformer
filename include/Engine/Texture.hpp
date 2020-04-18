@@ -1,22 +1,25 @@
 #pragma once
 
+#include <iostream>
 #include <GLEW/glew.h>
-
 #include <stb_image.h>
 
-class Texture{
-    public:
-        Texture();
-        Texture(char* fileLoc);
+class Texture
+{
+public:
+	Texture();
+	Texture(char* fileLoc);
 
-        void LoadTexture();
-        void UseTexture();
-        void ClearTexture();
+	void LoadTexture();
+	void UseTexture();
+	void ClearTexture();
 
-        ~Texture();
+	~Texture();
 
-    private:
-        GLuint textureID;
-        int width, height, bitDepth;
-        char* fileLocation;
+private:
+	GLuint textureID;
+	int width, height, bitDepth;
+
+	char* fileLocation;
 };
+

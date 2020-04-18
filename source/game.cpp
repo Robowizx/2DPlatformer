@@ -15,12 +15,14 @@
  GLfloat deltaTime = 0.0f;
  GLfloat lastTime = 0.0f;
  Texture crackedsoil;
+ char texfile[] = "Textures/crackedsoil.png"; 
+
 int main(){
     gameWindow = Window(800,600);
     GLfloat vertices[] = {
-        400.0f,600.0f,      0.5f, 1.0f,
-        0.0f,0.0f,    0.0f, 0.0f,
-        800.0f,0.0f,     1.0f, 0.0f
+        400.0f,600.0f, 0.5f, 1.0f,
+        0.0f,0.0f,     0.0f, 0.0f,
+        800.0f,0.0f,   1.0f, 0.0f
     };
 
     if(gameWindow.initialise()==1){
@@ -31,11 +33,11 @@ int main(){
     program->CreateFromFiles("Shaders/vertex.glsl","Shaders/fragment.glsl");
     glBindVertexArray(0);
 
-    crackedsoil = Texture("Textures/crackedsoil.png");
+    crackedsoil = Texture(texfile);
     crackedsoil.LoadTexture();
 
     glm::mat4 model(1.0f);
-    glm::mat4 projection = glm::ortho(0.0f,(GLfloat)(gameWindow.getBufferWidth()),0.0f,(GLfloat)(gameWindow.getBufferHeight()),0.0f,-0.0000001f);
+    glm::mat4 projection = glm::ortho(0.0f,800.0f,0.0f,600.0f,0.0f,-0.0000001f);
 
     program->UseShader();
     glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
