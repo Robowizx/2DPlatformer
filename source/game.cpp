@@ -15,7 +15,7 @@
  GLfloat deltaTime = 0.0f;
  GLfloat lastTime = 0.0f;
  Texture crackedsoil;
- char texfile[] = "Textures/crackedsoil.png"; 
+ char texfile[] = "Textures/crackedsoil.jpeg"; 
 
 int main(){
     gameWindow = Window(800,600);
