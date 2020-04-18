@@ -51,7 +51,7 @@ int main(){
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        //crackedsoil.UseTexture();
+        crackedsoil.UseTexture();
 
         object->RenderMesh(GL_TRIANGLES);
 
