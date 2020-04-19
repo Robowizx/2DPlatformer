@@ -99,7 +99,7 @@ int main(){
         model = glm::translate(model,glm::vec3(translation/0.2f,change/0.355f,0.0f));
         model = glm::scale(model,glm::vec3(scaling,1.0f,1.0f));
         translation = 0.0f;
-        scaling = 1.0f;
+        scaling = 3.0f;
         glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
         object->RenderMesh(GL_TRIANGLE_STRIP);
         gameWindow.swapBuffers();
