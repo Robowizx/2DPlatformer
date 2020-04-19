@@ -45,6 +45,7 @@ int main(){
     glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-0.0000001f);
 
     program->UseShader();
+    crackedsoil.UseTexture();
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
 
     while(!gameWindow.getShouldClose()){
@@ -56,27 +57,24 @@ int main(){
         leftKey = movement.keyControl(gameWindow.getsKeys(), leftKey);
     
         if(leftKey){
-            translation = 512.0f + 172.0f;
-            scaling = -0.2f;
+            translation = 172.0f;
+            scaling = -1.0f;
         }
-        
         else{
-            translation = 512.0f;
-            scaling = 0.2f;
+            translation =0.0f;
+            scaling = 1.0f;
         }
 
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glm::mat4 model(1.0f);
-        model = glm::translate(model,glm::vec3(translation,232.0f,0.0f));
         model = glm::scale(model,glm::vec3(scaling,0.356f,1.0f));        
 
         glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
 
-        program->UseShader();
 
-        crackedsoil.UseTexture();
+        
 
         object->RenderMesh(GL_TRIANGLE_STRIP);
 
