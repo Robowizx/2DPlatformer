@@ -14,6 +14,8 @@
  Shader *program = new Shader();
  GLfloat deltaTime = 0.0f;
  GLfloat lastTime = 0.0f;
+ GLfloat gravity=-5.0f,initialv=0.0f,finalv=0.0f,posx=576.0f,posy=296.0f,timea=0.0f;
+
  Texture crackedsoil;
  char texfile[] = "Textures/hero/hero.png"; 
 
@@ -38,27 +40,41 @@ int main(){
     crackedsoil.LoadTexture();
 
     glm::mat4 model(1.0f);
-    model = glm::translate(model,glm::vec3(512.0f,232.0f,0.0f));
-    model = glm::scale(model,glm::vec3(0.2f,0.356f,1.0f));
+    model = glm::translate(model,glm::vec3(posx,posy,0.0f));
+    model = glm::scale(model,glm::vec3(0.1f,0.1778f,1.0f));
     glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-0.0000001f);
 
     program->UseShader();
-    glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
-
+    crackedsoil.UseTexture();
     while(!gameWindow.getShouldClose()){
         GLfloat now = glfwGetTime();
 		deltaTime = now - lastTime; 
 		lastTime = now;
+        if(posy+19>0.0f){
+            timea += deltaTime;
+            finalv = initialv + (gravity*timea);
+            initialv = finalv;
+            
+        }
+        else
+        {
+            timea = 0.0f;
+            finalv = 0.0f;   
+        }
+        posy += (finalv*deltaTime);
+        if(posy+19<0.0f){
+            posy-=(posy+19);
+        }
+        std::cout<<posy<<std::endl;
 
         glfwPollEvents();
 
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        crackedsoil.UseTexture();
-
+        glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
         object->RenderMesh(GL_TRIANGLE_STRIP);
+        model = glm::translate(model,glm::vec3(0.0f,5.6242f*(finalv*deltaTime),0.0f));
 
         gameWindow.swapBuffers();
     }
