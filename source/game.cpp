@@ -57,6 +57,8 @@ int main(){
         GLfloat now = glfwGetTime();
 		deltaTime = now - lastTime; 
 		lastTime = now;
+
+        //gravity section
         if(posy+38>0.0f){
             finalv = initialv + (gravity*timea);
             timea += deltaTime;

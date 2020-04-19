@@ -1,7 +1,7 @@
 {
   "frames": [
     {
-      "filename": "death1.png",
+      "filename": "Death/death1.png",
       "frame": {
         "x": 0,
         "y": 0,
@@ -26,7 +26,7 @@
       }
     },
     {
-      "filename": "death1.png",
+      "filename": "Death/death01.png",
       "frame": {
         "x": 256,
         "y": 0,
@@ -51,7 +51,7 @@
       }
     },
     {
-      "filename": "death2.png",
+      "filename": "Death/death02.png",
       "frame": {
         "x": 0,
         "y": 256,
@@ -76,7 +76,7 @@
       }
     },
     {
-      "filename": "death3.png",
+      "filename": "Death/death03.png",
       "frame": {
         "x": 256,
         "y": 256,
@@ -101,7 +101,7 @@
       }
     },
     {
-      "filename": "death4.png",
+      "filename": "Death/death04.png",
       "frame": {
         "x": 512,
         "y": 0,
@@ -126,7 +126,7 @@
       }
     },
     {
-      "filename": "death5.png",
+      "filename": "Death/death05.png",
       "frame": {
         "x": 512,
         "y": 256,
@@ -151,7 +151,7 @@
       }
     },
     {
-      "filename": "death6.png",
+      "filename": "Death/death06.png",
       "frame": {
         "x": 0,
         "y": 512,
@@ -176,7 +176,7 @@
       }
     },
     {
-      "filename": "death7.png",
+      "filename": "Death/death07.png",
       "frame": {
         "x": 256,
         "y": 512,
@@ -201,7 +201,7 @@
       }
     },
     {
-      "filename": "death8.png",
+      "filename": "Death/death08.png",
       "frame": {
         "x": 512,
         "y": 512,
@@ -226,7 +226,7 @@
       }
     },
     {
-      "filename": "death9.png",
+      "filename": "Death/death09.png",
       "frame": {
         "x": 768,
         "y": 0,
@@ -251,7 +251,7 @@
       }
     },
     {
-      "filename": "death10.png",
+      "filename": "Death/death010.png",
       "frame": {
         "x": 768,
         "y": 256,
@@ -276,7 +276,7 @@
       }
     },
     {
-      "filename": "death10.png",
+      "filename": "Death/death10.png",
       "frame": {
         "x": 768,
         "y": 512,
@@ -301,7 +301,7 @@
       }
     },
     {
-      "filename": "death2.png",
+      "filename": "Death/death2.png",
       "frame": {
         "x": 0,
         "y": 768,
@@ -326,7 +326,7 @@
       }
     },
     {
-      "filename": "death3.png",
+      "filename": "Death/death3.png",
       "frame": {
         "x": 256,
         "y": 768,
@@ -351,7 +351,7 @@
       }
     },
     {
-      "filename": "death4.png",
+      "filename": "Death/death4.png",
       "frame": {
         "x": 512,
         "y": 768,
@@ -376,7 +376,7 @@
       }
     },
     {
-      "filename": "death5.png",
+      "filename": "Death/death5.png",
       "frame": {
         "x": 768,
         "y": 768,
@@ -401,7 +401,7 @@
       }
     },
     {
-      "filename": "death6.png",
+      "filename": "Death/death6.png",
       "frame": {
         "x": 1024,
         "y": 0,
@@ -426,7 +426,7 @@
       }
     },
     {
-      "filename": "death7.png",
+      "filename": "Death/death7.png",
       "frame": {
         "x": 1024,
         "y": 256,
@@ -451,7 +451,7 @@
       }
     },
     {
-      "filename": "death8.png",
+      "filename": "Death/death8.png",
       "frame": {
         "x": 1024,
         "y": 512,
@@ -476,7 +476,7 @@
       }
     },
     {
-      "filename": "death9.png",
+      "filename": "Death/death9.png",
       "frame": {
         "x": 1024,
         "y": 768,
