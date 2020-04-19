@@ -9,7 +9,7 @@ class Animation{
     public:
         Animation();
 
-        bool keyControl(bool* keys, bool lastPressed);
+        bool keyControl(bool* keys, int key);
 
         ~Animation();
 

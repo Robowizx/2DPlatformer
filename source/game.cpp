@@ -30,8 +30,9 @@ int main(){
         1280.0f,720.0f,    1.0f,0.75f
     };
 
-    float translation = 512.0f, scaling = 0.2f;
-    bool leftKey = false;
+    float translation = 0.0f, scaling = 1.0f;
+    //right = false left = true (state)
+    bool leftKey = false,state=false,rightkey=false;
 
     if(gameWindow.initialise()==1){
         return 1;
@@ -46,8 +47,7 @@ int main(){
 
     glm::mat4 model(1.0f);
     model = glm::translate(model,glm::vec3(posx,posy,0.0f));
-    model = glm::scale(model,glm::vec3(0.1f*2.0,0.1778f*2.0,1.0f));
-    float* val;
+    model = glm::scale(model,glm::vec3(0.2f,0.356f,1.0f));
     glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-0.0000001f);
 
     program->UseShader();
@@ -78,29 +78,28 @@ int main(){
         //std::cout<<posy<<std::endl;
 
         glfwPollEvents();
-        leftKey = movement.keyControl(gameWindow.getsKeys(), leftKey);
+        leftKey = movement.keyControl(gameWindow.getsKeys(),GLFW_KEY_LEFT);
+        rightkey = movement.keyControl(gameWindow.getsKeys(),GLFW_KEY_RIGHT);
     
-        if(leftKey){
+        if(leftKey && !state){
+            std::cout<<"turning left"<<std::endl;
             translation = 172.0f;
+            state = !state;
             scaling = -1.0f;
         }
-        else{
-            translation =0.0f;
-            scaling = 1.0f;
+        else if(rightkey && state){
+            std::cout<<"turning right"<<std::endl;
+            translation = 172.0f;
+            state = !state;
+            scaling = -1.0f;
         }
 
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        glm::mat4 model(1.0f);
-        model = glm::scale(model,glm::vec3(scaling,0.356f,1.0f));        
-
-        glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
-
-
-        
-
-        model = glm::translate(model,glm::vec3(0.0f,change/(2.0f*0.1778f),0.0f));
+        model = glm::translate(model,glm::vec3(translation/0.2f,change/0.355f,0.0f));
+        model = glm::scale(model,glm::vec3(scaling,1.0f,1.0f));
+        translation = 0.0f;
+        scaling = 1.0f;
         glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
         object->RenderMesh(GL_TRIANGLE_STRIP);
         gameWindow.swapBuffers();
