@@ -1,953 +1,535 @@
 {
   "frames": [
     {
-      "filename": "Rogue/Hurt/hurt2.png",
+      "filename": "hurt2.png",
       "frame": {
         "x": 0,
         "y": 0,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[28],
+        "R":[74],
+        "B":[18],
+        "T":[63],
+        "index":81
       }
     },
     {
-      "filename": "Rogue/Attack/Attack1.png",
+      "filename": "Attack1.png",
       "frame": {
         "x": 128,
         "y": 0,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[30],
+        "R":[74],
+        "B":[19],
+        "T":[60],
+        "index":92
       }
     },
     {
-      "filename": "Rogue/Attack/Attack3.png",
+      "filename": "Attack3.png",
       "frame": {
         "x": 0,
         "y": 128,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[33,62],
+        "R":[49,76],
+        "B":[237,210],
+        "T":[191,194],
+        "index":18 76
       }
     },
     {
-      "filename": "Rogue/Attack/Attack4.png",
+      "filename": "Attack4.png",
       "frame": {
         "x": 128,
         "y": 128,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[161,187],
+        "R":[185,199],
+        "B":[237,232],
+        "T":[204,219],
+        "index":145 199
       }
     },
     {
-      "filename": "Rogue/Attack/Attack5.png",
+      "filename": "Attack5.png",
       "frame": {
         "x": 256,
         "y": 0,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[287,318],
+        "R":[307,329],
+        "B":[109,94],
+        "T":[66,71],
+        "index": 280 329
       }
     },
     {
-      "filename": "Rogue/Attack/Attack6.png",
+      "filename": "Attack6.png",
       "frame": {
         "x": 256,
         "y": 128,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[288],
+        "R":[307],
+        "B":[237],
+        "T":[192],
+        "index":283 318
       }
     },
     {
-      "filename": "Rogue/Attack/Attack7.png",
+      "filename": "Attack7.png",
       "frame": {
         "x": 0,
         "y": 256,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[32],
+        "R":[51],
+        "B":[365],
+        "T":[320],
+        "index":29 61
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra1.png",
+      "filename": "attack_extra1.png",
       "frame": {
         "x": 128,
         "y": 256,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[157],
+        "R":[181],
+        "B":[365],
+        "T":[326],
+        "index":149 191
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra10.png",
+      "filename": "attack_extra10.png",
       "frame": {
         "x": 256,
         "y": 256,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[304],
+        "R":[331],
+        "B":[348],
+        "T":[296],
+        "index":269 329
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra11.png",
+      "filename": "attack_extra11.png",
       "frame": {
         "x": 384,
         "y": 0,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[418],
+        "R":[442],
+        "B":[109],
+        "T":[59],
+        "index":403 445
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra2.png",
+      "filename": "attack_extra2.png",
       "frame": {
         "x": 384,
         "y": 128,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[414],
+        "R":[436],
+        "B":[237],
+        "T":[199],
+        "index":404 448
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra3.png",
+      "filename": "attack_extra3.png",
       "frame": {
         "x": 384,
         "y": 256,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[418,445],
+        "R":[439,458],
+        "B":[365,355],
+        "T":[320,335],
+        "index":405 458
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra4.png",
+      "filename": "attack_extra4.png",
       "frame": {
         "x": 0,
         "y": 384,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[36,67],
+        "R":[52,76],
+        "B":[493,481],
+        "T":[449,446],
+        "index":21 76
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra5.png",
+      "filename": "attack_extra5.png",
       "frame": {
         "x": 128,
         "y": 384,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[155,188],
+        "R":[179,203],
+        "B":[493,475],
+        "T":[446,441],
+        "index":146 203
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra6.png",
+      "filename": "attack_extra6.png",
       "frame": {
         "x": 256,
         "y": 384,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[286,315],
+        "R":[307,330],
+        "B":[493,460],
+        "T":[443,442],
+        "index":275 330
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra7.png",
+      "filename": "attack_extra7.png",
       "frame": {
         "x": 384,
         "y": 384,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[416],
+        "R":[438],
+        "B":[493],
+        "T":[439],
+        "index":406 441
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra8.png",
+      "filename": "attack_extra8.png",
       "frame": {
         "x": 512,
         "y": 0,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[543,571],
+        "R":[570,585],
+        "B":[109,75],
+        "T":[56,65],
+        "index":531 585
       }
     },
     {
-      "filename": "Rogue/Attack_Extra/attack_extra9.png",
+      "filename": "attack_extra9.png",
       "frame": {
         "x": 512,
         "y": 128,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[546,578],
+        "R":[571,589],
+        "B":[237,219],
+        "T":[184,195],
+        "index":525 590
       }
     },
     {
-      "filename": "Rogue/Hurt/hurt1.png",
+      "filename": "hurt1.png",
       "frame": {
         "x": 512,
         "y": 256,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[540],
+        "R":[567],
+        "B":[365],
+        "T":[321],
+        "index":533 579
       }
     },
     {
-      "filename": "Rogue/Attack/Attack2.png",
+      "filename": "Attack2.png",
       "frame": {
         "x": 512,
         "y": 384,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[547,582],
+        "R":[565,592],
+        "B":[493,477],
+        "T":[447,453],
+        "index":536 593
       }
     },
     {
-      "filename": "Rogue/Hurt/hurt3.png",
+      "filename": "hurt3.png",
       "frame": {
         "x": 0,
         "y": 512,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[26],
+        "R":[51],
+        "B":[622],
+        "T":[575],
+        "index":14 71
       }
     },
     {
-      "filename": "Rogue/Hurt/hurt4.png",
+      "filename": "hurt4.png",
       "frame": {
         "x": 128,
         "y": 512,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[160],
+        "R":[185],
+        "B":[622],
+        "T":[578],
+        "index":140 202
       }
     },
     {
-      "filename": "Rogue/Jump/jump1.png",
+      "filename": "jump1.png",
       "frame": {
         "x": 256,
         "y": 512,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[286],
+        "R":[312],
+        "B":[621],
+        "T":[583],
+        "index":273 323
       }
     },
     {
-      "filename": "Rogue/Jump/jump2.png",
+      "filename": "jump2.png",
       "frame": {
         "x": 384,
         "y": 512,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[414],
+        "R":[436],
+        "B":[620],
+        "T":[564],
+        "index":405 449
       }
     },
     {
-      "filename": "Rogue/Jump/jump3.png",
+      "filename": "jump3.png",
       "frame": {
         "x": 512,
         "y": 512,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[543],
+        "R":[566],
+        "B":[621],
+        "T":[566],
+        "index":538 577
       }
     },
     {
-      "filename": "Rogue/Jump/jump4.png",
+      "filename": "jump4.png",
       "frame": {
         "x": 640,
         "y": 0,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[656],
+        "R":[706],
+        "B":[86],
+        "T":[101],
+        "index":656 706
       }
     },
     {
-      "filename": "Rogue/Jump/jump5.png",
+      "filename": "jump5.png",
       "frame": {
         "x": 640,
         "y": 128,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[675],
+        "R":[699],
+        "B":[237],
+        "T":[186],
+        "index":658 709
       }
     },
     {
-      "filename": "Rogue/Jump/jump6.png",
+      "filename": "jump6.png",
       "frame": {
         "x": 640,
         "y": 256,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[671],
+        "R":[691],
+        "B":[365],
+        "T":[318],
+        "index":656 709
       }
     },
     {
-      "filename": "Rogue/Jump/jump7.png",
+      "filename": "jump7.png",
       "frame": {
         "x": 640,
         "y": 384,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[671],
+        "R":[691],
+        "B":[493],
+        "T":[457],
+        "index":656 707
       }
     },
     {
-      "filename": "Rogue/Run/run1.png",
+      "filename": "run1.png",
       "frame": {
         "x": 640,
         "y": 512,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[669],
+        "R":[694],
+        "B":[615],
+        "T":[573],
+        "index":656 704
       }
     },
     {
-      "filename": "Rogue/Run/run2.png",
+      "filename": "run2.png",
       "frame": {
         "x": 0,
         "y": 640,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[33],
+        "R":[51],
+        "B":[748],
+        "T":[703],
+        "index":25 62
       }
     },
     {
-      "filename": "Rogue/Run/run3.png",
+      "filename": "run3.png",
       "frame": {
         "x": 128,
         "y": 640,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[162],
+        "R":[184],
+        "B":[748],
+        "T":[706],
+        "index":156 190
       }
     },
     {
-      "filename": "Rogue/Run/run4.png",
+      "filename": "run4.png",
       "frame": {
         "x": 256,
         "y": 640,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[290],
+        "R":[307],
+        "B":[749],
+        "T":[705],
+        "index":282 320
       }
     },
     {
-      "filename": "Rogue/Run/run5.png",
+      "filename": "run5.png",
       "frame": {
         "x": 384,
         "y": 640,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[416],
+        "R":[436],
+        "B":[745],
+        "T":[700],
+        "index":400 452
       }
     },
     {
-      "filename": "Rogue/Run/run6.png",
+      "filename": "run6.png",
       "frame": {
         "x": 512,
         "y": 640,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[542],
+        "R":[563],
+        "B":[747],
+        "T":[703],
+        "index":535 576
       }
     },
     {
-      "filename": "Rogue/Run/run7.png",
+      "filename": "run7.png",
       "frame": {
         "x": 640,
         "y": 640,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[673],
+        "R":[696],
+        "B":[748],
+        "T":[710],
+        "index":669 706
       }
     },
     {
-      "filename": "Rogue/Run/run8.png",
+      "filename": "run8.png",
       "frame": {
         "x": 768,
         "y": 0,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[799],
+        "R":[821],
+        "B":[109],
+        "T":[62],
+        "index":792 831
       }
     },
     {
-      "filename": "Rogue/rogue.png",
+      "filename": "rogue.png",
       "frame": {
         "x": 768,
         "y": 128,
         "w": 128,
-        "h": 128
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 128,
-        "h": 128
-      },
-      "sourceSize": {
-        "w": 128,
-        "h": 128
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
+        "h": 128,
+        "L":[799],
+        "R":[826],
+        "B":[238],
+        "T":[192],
+        "index":791 836
       }
     }
   ],
