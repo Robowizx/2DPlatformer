@@ -56,7 +56,7 @@ int main(){
         leftKey = movement.keyControl(gameWindow.getsKeys(), leftKey);
     
         if(leftKey){
-            translation = 512.0f + 160.0f;
+            translation = 512.0f + 172.0f;
             scaling = -0.2f;
         }
         
