@@ -16,6 +16,8 @@
  GLfloat deltaTime = 0.0f;
  GLfloat lastTime = 0.0f;
  Animation movement;
+ GLfloat gravity=-5.0f,initialv=0.0f,finalv=0.0f,posx=512.0f,posy=232.0f,timea=0.0f,change=0.0f;
+
  Texture crackedsoil;
  char texfile[] = "Textures/hero/hero.png"; 
 
@@ -42,17 +44,39 @@ int main(){
     crackedsoil = Texture(texfile);
     crackedsoil.LoadTexture();
 
+    glm::mat4 model(1.0f);
+    model = glm::translate(model,glm::vec3(posx,posy,0.0f));
+    model = glm::scale(model,glm::vec3(0.1f*2.0,0.1778f*2.0,1.0f));
+    float* val;
     glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-0.0000001f);
 
     program->UseShader();
-    crackedsoil.UseTexture();
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
-
+    crackedsoil.UseTexture();
     while(!gameWindow.getShouldClose()){
         GLfloat now = glfwGetTime();
 		deltaTime = now - lastTime; 
 		lastTime = now;
-        //Get keyboard inputs
+        if(posy+38>0.0f){
+            finalv = initialv + (gravity*timea);
+            timea += deltaTime;
+            initialv = finalv;
+        }
+        else
+        {
+            timea = 0.0f;
+            finalv = 0.0f;   
+        }
+        posy += (finalv*deltaTime);
+        if(posy+38<0.0f){
+            change=(finalv*deltaTime)-(posy+38);
+            posy-=(posy+38); 
+        }
+        else{
+            change = (finalv*deltaTime);
+        }
+        //std::cout<<posy<<std::endl;
+
         glfwPollEvents();
         leftKey = movement.keyControl(gameWindow.getsKeys(), leftKey);
     
@@ -76,8 +100,9 @@ int main(){
 
         
 
+        model = glm::translate(model,glm::vec3(0.0f,change/(2.0f*0.1778f),0.0f));
+        glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
         object->RenderMesh(GL_TRIANGLE_STRIP);
-
         gameWindow.swapBuffers();
     }
      glUseProgram(0);
