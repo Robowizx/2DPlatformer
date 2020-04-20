@@ -11,7 +11,7 @@ public:
 	Texture(char* fileLoc);
 
 	void LoadTexture();
-	void UseTexture();
+	void UseTexture(GLenum texunit);
 	void ClearTexture();
 
 	~Texture();

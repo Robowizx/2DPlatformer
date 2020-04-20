@@ -8,16 +8,17 @@ class Mesh
 public:
 	Mesh();
 
-	void CreateMesh(GLfloat *vertices, unsigned int *indices, unsigned int numOfVertices, unsigned int numOfIndices);
 	void CreateMesh(GLfloat *vertices, unsigned int size, unsigned int numOfvertices);
+	void LoadUV(GLfloat *UV,unsigned int size);
 	void RenderMesh(GLenum primitive);
 	void bindVAO();
+	void ClearUV();
 	void ClearMesh();
 
 	~Mesh();
 
 private:
-	GLuint VAO, VBO, IBO;
-	GLsizei indexCount,vertexCount;
+	GLuint VAO, VBO, TBO;
+	GLsizei vertexCount;
 };
 

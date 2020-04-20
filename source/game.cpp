@@ -1,4 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
+#define DEBUG true
+#define RIGHT 1
+#define LEFT -1
 
 #include <Engine/WindowGen.hpp>
 #include <Engine/Mesh.hpp>
@@ -52,7 +55,7 @@ int main(){
 
     program->UseShader();
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
-    crackedsoil.UseTexture();
+    crackedsoil.UseTexture(GL_TEXTURE0);
     while(!gameWindow.getShouldClose()){
         GLfloat now = glfwGetTime();
 		deltaTime = now - lastTime; 

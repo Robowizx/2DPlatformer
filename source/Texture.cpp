@@ -43,9 +43,9 @@ void Texture::LoadTexture()
 	stbi_image_free(texData);
 }
 
-void Texture::UseTexture()
+void Texture::UseTexture(GLenum texunit)
 {
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(texunit);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
