@@ -141,8 +141,8 @@ void Character::gforce(GLfloat deltatime){
         finalVY = initalVY + (gravity*timea);
     }
     posy += (finalVY * deltatime);
-    if(posy-diff<bounds[2]){
-     finalVY    
+    if((posy+diff)<bounds[2]){
+     finalVY = (finalVY*deltatime);    
     }
 }
 

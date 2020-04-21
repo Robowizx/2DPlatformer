@@ -22,7 +22,7 @@ int main(){
     if(gameWindow.initialise()==1){
         return 1;
     }
-    hero = Character(0.0f,0.0f,metafile,texfile,DEBUG,gameWindow.getsKeys(),1);
+    hero = Character(0.0f,0.0f,metafile,texfile,DEBUG,gameWindow.getsKeys(),true);
     while(!gameWindow.getShouldClose()){
         glfwPollEvents();
 
