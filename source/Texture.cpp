@@ -49,8 +49,10 @@ void Texture::UseTexture(GLenum texunit)
 	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
-void Texture::ClearTexture()
+void Texture::ClearTexture(GLenum texunit)
 {
+	glActiveTexture(texunit);
+	glBindTexture(GL_TEXTURE_2D,0);
 	glDeleteTextures(1, &textureID);
 	textureID = 0;
 	width = 0;

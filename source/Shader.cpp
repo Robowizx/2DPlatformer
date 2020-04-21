@@ -5,6 +5,8 @@ Shader::Shader()
 	shaderID = 0;
 	uniformModel = 0;
 	uniformProjection = 0;
+	uniformDebug = 0;
+	uniformSampler = 0;
     //uniformView = 0;
 }
 
@@ -80,6 +82,8 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 
     uniformProjection = glGetUniformLocation(shaderID, "projection");
 	uniformModel = glGetUniformLocation(shaderID, "model");
+	uniformDebug = glGetUniformLocation(shaderID,"debug");
+	uniformSampler = glGetUniformLocation(shaderID,"texunit");
 	//uniformView = glGetUniformLocation(shaderID, "view");
 }
 
@@ -90,6 +94,13 @@ GLuint Shader::GetProjectionLocation()
 GLuint Shader::GetModelLocation()
 {
 	return uniformModel;
+}GLuint Shader::GetDebugLocation()
+{
+	return uniformDebug;
+}
+GLuint Shader::GetSamplerLocation()
+{
+	return uniformSampler;
 }
 // GLuint Shader::GetViewLocation()
 // {

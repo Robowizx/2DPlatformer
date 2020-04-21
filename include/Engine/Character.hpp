@@ -5,16 +5,18 @@
 #define JUMP "jump"
 #define ATTACK_1 "attack1"
 #define ATTACK_2 "attack2"
+#define FALL "fall"
 
 #include <vector>
 #include <string>
 #include <cstring>
 #include <fstream>
 #include <json/json.h>
-#include <GLEW/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "Mesh.hpp"
 #include "Texture.hpp"
+#include "Shader.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,12 +27,23 @@ class Character
 {
     public:
         Character();
-        Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, bool* k, int dir);
+        Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, bool* k, bool dir, Shader*  prg);
         void render(GLfloat deltatime);
+        ~Character();
+
     private:
         void LRBT();
         void meshInit();
-        GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,change,L,R,B,T;
+        void stateUpdate();
+        void setDirection();
+        void setIdle();
+        void setRun();
+        void setAttack1();
+        void setAttack2();
+        void setJump();
+        void gforce(GLfloat deltatime);
+
+        GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,change,L,R,B,T,scale,timef;
         int direction,frame;
         std::string state;
         bool debug,*keys;
@@ -38,8 +51,8 @@ class Character
         Json::Value animation;
         Json::Value frames; 
         Json::Value order;
-        GLuint modeloc;
-        float vertices[8] = {
+        Shader* program;
+        GLfloat vertices[8] = {
                               0.0f,0.0f,    
                               0.0f,256.0f,   
                               256.0f,0.0f,   

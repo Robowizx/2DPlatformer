@@ -17,6 +17,8 @@ public:
 
 	GLuint GetProjectionLocation();
 	GLuint GetModelLocation();
+	GLuint GetDebugLocation();
+	GLuint GetSamplerLocation();
 	//GLuint GetViewLocation();
 
 	void UseShader();
@@ -25,7 +27,7 @@ public:
 	~Shader();
 
 private:
-	GLuint shaderID, uniformProjection, uniformModel;
+	GLuint shaderID, uniformProjection, uniformModel,uniformDebug,uniformSampler;
 	//Gluint uniformView;
 	std::string ReadFile(const char* fileLocation);
 	

@@ -12,7 +12,7 @@ public:
 
 	void LoadTexture();
 	void UseTexture(GLenum texunit);
-	void ClearTexture();
+	void ClearTexture(GLenum texunit);
 
 	~Texture();
 
