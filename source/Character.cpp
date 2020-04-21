@@ -49,10 +49,18 @@ Character::Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, b
 void Character::LRBT(){
     
     Json::Value data = frames[frame];
-    L = posx+(2.0f*(GLfloat)data["L"][0].asInt());
-    R = posx+256.0f-(2.0f*(GLfloat)data["R"][0].asInt());
-    B = posy+(2.0f*(GLfloat)data["B"][0].asInt());
-    T = posy+256.0f-(2.0f*(GLfloat)data["T"][0].asInt());
+    if(direction){
+        L = posx+(2.0f*(GLfloat)data["L"][0].asInt());
+        R = posx+256.0f-(2.0f*(GLfloat)data["R"][0].asInt());
+        B = posy+(2.0f*(GLfloat)data["B"][0].asInt());
+        T = posy+256.0f-(2.0f*(GLfloat)data["T"][0].asInt());
+    }
+    else{
+        L = posx-(2.0f*(GLfloat)data["L"][0].asInt());
+        R = posx-256.0f+(2.0f*(GLfloat)data["R"][0].asInt());
+        B = posy-(2.0f*(GLfloat)data["B"][0].asInt());
+        T = posy-256.0f+(2.0f*(GLfloat)data["T"][0].asInt());
+    }
 }
 
 void Character::meshInit(){
@@ -165,11 +173,14 @@ void Character::render(GLfloat deltatime){
     gforce(deltatime);
     index = setDirection();
     if(index){
-        posx+=index;
+        if(direction)
+            posx-=index;
+        else
+            posx+=index;
         scale=-1.0f;
     }
     
-
+    Meshlist[0].ClearUV();
     for(int i=0;i<8;i++){
         if(i%2==0){
             if(i<=2)
@@ -199,6 +210,7 @@ void Character::render(GLfloat deltatime){
 
     Meshlist[0].RenderMesh(GL_TRIANGLE_STRIP);
 
+
     LRBT();
     if(debug){
      vertices[0]=L;
@@ -211,7 +223,24 @@ void Character::render(GLfloat deltatime){
      vertices[7]=T;
      Meshlist[1].CreateMesh(vertices,8,4);
 
+     model = glm::mat4(1.0f);
+     glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
+     glUniform1i(program->GetDebugLocation(),1);
+
+     Meshlist[1].RenderMesh(GL_LINE_LOOP);
+
+     Meshlist[1].ClearMesh();
+
     }
+    glUseProgram(0);
     
+}
+
+Character::~Character(){
+    for(int i=0;i< Meshlist.size();i++){
+        Meshlist[i].ClearMesh();
+    }
+    Meshlist.clear();
+    tex.ClearTexture(GL_TEXTURE0);
 }
 

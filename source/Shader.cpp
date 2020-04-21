@@ -122,6 +122,8 @@ void Shader::ClearShader()
 
 	uniformModel = 0;
 	uniformProjection = 0;
+	uniformDebug = 0;
+	uniformSampler = 0;
     //uniformView = 0;
 }
 
