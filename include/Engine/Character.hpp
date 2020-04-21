@@ -1,12 +1,14 @@
 #pragma once
 
-#define IDLE 0
-#define RUN 1
-#define JUMP 2
-#define ATTACK_1 3
-#define ATTACK_2 4
+#define IDLE "idle"
+#define RUN "run"
+#define JUMP "jump"
+#define ATTACK_1 "attack1"
+#define ATTACK_2 "attack2"
 
 #include <vector>
+#include <string>
+#include <cstring>
 #include <fstream>
 #include <json/json.h>
 #include <GLEW/glew.h>
@@ -23,28 +25,26 @@ class Character
 {
     public:
         Character();
-        Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, bool* k, int dir,GLint mloc);
+        Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, bool* k, int dir);
         void render(GLfloat deltatime);
     private:
+        void LRBT();
+        void meshInit();
         GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,change,L,R,B,T;
-        int state,direction,frame;
+        int direction,frame;
+        std::string state;
         bool debug,*keys;
         Texture tex;
         Json::Value animation;
         Json::Value frames; 
+        Json::Value order;
         GLuint modeloc;
-        float vertices[16] = {
+        float vertices[8] = {
                               0.0f,0.0f,    
                               0.0f,256.0f,   
                               256.0f,0.0f,   
-                              256.0f,256.0f, 
-                           };
-        float box[16] = {
-                              0.0f,0.0f,    
-                              0.0f,256.0f,   
-                              256.0f,0.0f,   
-                              256.0f,256.0f, 
-                           };
+                              256.0f,256.0f 
+                           };        
         float bounds[4] = {0.0f,1280.0f,0.0f,720.0f};                                      
         std::vector<Mesh> Meshlist;
 };
