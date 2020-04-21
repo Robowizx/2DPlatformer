@@ -179,7 +179,7 @@ void Character::render(GLfloat deltatime){
      Meshlist[1].CreateMesh(vertices,8,4);
     }
 
-    for(int i=0;i<8i++){
+    for(int i=0;i<8;i++){
         if(i%2==0){
             if(i<=2)
                 vertices[i] = frameX/texX;
@@ -201,6 +201,12 @@ void Character::render(GLfloat deltatime){
     glm::mat4 model(1.0f);
     model = glm::translate(model,glm::vec3(index,finalVY,0.0f));
     model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
+
+    glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
+    glUniform1i(program->GetDebugLocation(),1);
+    glUniform1i(program->GetSamplerLocation(),0);
+
+    Meshlist[0].RenderMesh(GL_TRIANGLE_STRIP);
     
 }
 
