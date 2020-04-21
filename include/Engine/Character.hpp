@@ -35,7 +35,7 @@ class Character
         void LRBT();
         void meshInit();
         void stateUpdate();
-        void setDirection();
+        GLfloat setDirection();
         void setIdle();
         void setRun();
         void setAttack1();
@@ -43,7 +43,7 @@ class Character
         void setJump();
         void gforce(GLfloat deltatime);
 
-        GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,L,R,B,T,scale,timef;
+        GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,L,R,B,T,timef;
         int direction,frame;
         std::string state;
         bool debug,*keys;
@@ -51,6 +51,7 @@ class Character
         Json::Value animation;
         Json::Value frames; 
         Json::Value order;
+        Json::Value meta;
         Shader* program;
         GLfloat vertices[8] = {
                               0.0f,0.0f,    

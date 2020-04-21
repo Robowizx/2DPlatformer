@@ -16,7 +16,6 @@ Character::Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, b
     finalVY = 0.0f;
     timea = 0.0f;
     timef = 0.0f;
-    scale = 1.0f;
     state = IDLE;
 
     //loading texture
@@ -31,6 +30,7 @@ Character::Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, b
     }
     Json::Value root;
     stream>>root;
+    meta = root["meta"];
     animation = root["animation"];
     frames = root["frames"];
     order = animation[state]["list"];
@@ -103,7 +103,6 @@ void Character::stateUpdate(){
 
     }
     else{
-        setDirection();
         if(keys[GLFW_KEY_LEFT] || keys[GLFW_KEY_RIGHT]){
             //setRun();
         }
@@ -119,11 +118,11 @@ void Character::stateUpdate(){
     }
 }
 
-void Character::setDirection(){
+GLfloat Character::setDirection(){
     
     if(((keys[GLFW_KEY_LEFT] && direction)||(keys[GLFW_KEY_RIGHT] && !direction)) && !(keys[GLFW_KEY_LEFT] && keys[GLFW_KEY_RIGHT])){
         direction = !direction;
-        scale = -1.0f;
+        return (GLfloat)(frames[frame]["index"].asInt());
     }    
     
 }
@@ -154,8 +153,19 @@ void Character::gforce(GLfloat deltatime){
 
 void Character::render(GLfloat deltatime){
     
-    stateUpdate();
+    GLfloat index=0.0f,scale=1.0f,texX,texY,frameX,frameY,size;
+    texX = (GLfloat)(meta["size"]["w"].asInt());
+    texY = (GLfloat)(meta["size"]["h"].asInt());
+    frameX = (GLfloat)(frames[frame]["x"].asInt());
+    frameY = (GLfloat)(frames[frame]["Y"].asInt());
+    size = (GLfloat)(frames[frame]["w"].asInt());
+
+    //stateUpdate();
     gforce(deltatime);
+    index = setDirection();
+    if(index){
+        scale=-1.0f;
+    }
     LRBT();
     if(debug){
      vertices[0]=L;
@@ -168,5 +178,29 @@ void Character::render(GLfloat deltatime){
      vertices[7]=T;
      Meshlist[1].CreateMesh(vertices,8,4);
     }
+
+    for(int i=0;i<8i++){
+        if(i%2==0){
+            if(i<=2)
+                vertices[i] = frameX/texX;
+            else
+                vertices[i] = (frameX+size)/texX;
+        }
+        else{
+            if(i==1 || i==5)
+                vertices[i] = 1 - ((frameY+size)/texY);
+            else
+                vertices[i] = 1 - (frameY/texY);     
+        }
+    }
+    Meshlist[0].LoadUV(vertices,8);
+
+    program->UseShader();
+    tex.UseTexture(GL_TEXTURE0);
+
+    glm::mat4 model(1.0f);
+    model = glm::translate(model,glm::vec3(index,finalVY,0.0f));
+    model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
+    
 }
 
