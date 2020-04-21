@@ -16,6 +16,7 @@ Character::Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, b
     timea = 0.0f;
     change=0.0f;
     state = IDLE;
+    frame = 0;
     tex = Texture(mfile);
     tex.LoadTexture();
 }

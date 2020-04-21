@@ -26,18 +26,25 @@ class Character
         Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, bool* k, int dir,GLint mloc);
         void render(GLfloat deltatime);
     private:
-        GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,change;
-        int state,direction;
+        GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,change,L,R,B,T;
+        int state,direction,frame;
         bool debug,*keys;
         Texture tex;
         Json::Value animation;
         Json::Value frames; 
         GLuint modeloc;
         float vertices[16] = {
-                             0.0f,0.0f,    
-                             0.0f,256.0f,   
-                             256.0f,0.0f,   
-                             256.0f,256.0f, 
+                              0.0f,0.0f,    
+                              0.0f,256.0f,   
+                              256.0f,0.0f,   
+                              256.0f,256.0f, 
                            };
+        float box[16] = {
+                              0.0f,0.0f,    
+                              0.0f,256.0f,   
+                              256.0f,0.0f,   
+                              256.0f,256.0f, 
+                           };
+        float bounds[4] = {0.0f,1280.0f,0.0f,720.0f};                                      
         std::vector<Mesh> Meshlist;
 };
