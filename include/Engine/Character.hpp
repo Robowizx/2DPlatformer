@@ -12,11 +12,12 @@
 #include <cstring>
 #include <fstream>
 #include <json/json.h>
-#include <GLFW/glfw3.h>
+
 
 #include "Mesh.hpp"
 #include "Texture.hpp"
 #include "Shader.hpp"
+#include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -29,6 +30,7 @@ class Character
         Character();
         Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, bool* k, bool dir, Shader*  prg);
         void render(GLfloat deltatime);
+        GLuint getVAO();
         ~Character();
 
     private:

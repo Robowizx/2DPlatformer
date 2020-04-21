@@ -8,6 +8,8 @@
     vertexCount = 0;
 }
 
+
+
 void Mesh::CreateMesh(GLfloat *vertices, unsigned int size, unsigned int numOfVertices){
 	vertexCount = numOfVertices;
 
@@ -24,6 +26,10 @@ void Mesh::CreateMesh(GLfloat *vertices, unsigned int size, unsigned int numOfVe
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
+}
+
+GLuint Mesh::getVAO(){
+	return VAO;
 }
 
 void Mesh::LoadUV(GLfloat *UV,unsigned int size){
@@ -62,6 +68,7 @@ void Mesh::RenderMesh(GLenum primitive)
 }
 
 void Mesh::bindVAO(){
+	std::cout<<"VAO = "<<VAO<<std::endl;
 	glBindVertexArray(VAO);
 }
 

@@ -12,6 +12,7 @@ public:
 	void LoadUV(GLfloat *UV,unsigned int size);
 	void RenderMesh(GLenum primitive);
 	void bindVAO();
+	GLuint getVAO();
 	void ClearUV();
 	void ClearMesh();
 

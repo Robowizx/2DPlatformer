@@ -65,7 +65,7 @@ void Character::LRBT(){
 
 void Character::meshInit(){
     for(int i=0;i<8;i++){
-        if(i%2!=0)
+        if(i%2==0)
             vertices[i] +=posx;
         else
             vertices[i]+=posy; 
@@ -77,8 +77,13 @@ void Character::meshInit(){
         Mesh x;
         Meshlist.push_back(x);
     }
-    Meshlist[0].CreateMesh(vertices,8,4);
-    Meshlist[0].bindVAO();    
+    std::cout<<"Vertices: "<<std::endl;
+    for(int i=0;i<8;i++){
+       std::cout<<vertices[i]<<",";
+       if(i%2!=0)
+        std::cout<<std::endl;
+    }
+    Meshlist[0].CreateMesh(vertices,8,4); 
 }
 
 void Character::stateUpdate(){
@@ -132,8 +137,9 @@ GLfloat Character::setDirection(){
     if(((keys[GLFW_KEY_LEFT] && direction)||(keys[GLFW_KEY_RIGHT] && !direction)) && !(keys[GLFW_KEY_LEFT] && keys[GLFW_KEY_RIGHT])){
         direction = !direction;
         return (GLfloat)(frames[frame]["index"].asInt());
-    }    
-    
+    } 
+    else   
+        return 0.0f;
 }
 
 void Character::gforce(GLfloat deltatime){
@@ -195,6 +201,7 @@ void Character::render(GLfloat deltatime){
                 vertices[i] = 1 - (frameY/texY);     
         }
     }
+    
     Meshlist[0].LoadUV(vertices,8);
 
     program->UseShader();
@@ -205,8 +212,10 @@ void Character::render(GLfloat deltatime){
     model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
 
     glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
-    glUniform1i(program->GetDebugLocation(),0);
+    glUniform1i(program->GetDebugLocation(),1);
     glUniform1i(program->GetSamplerLocation(),0);
+
+    std::cout<<"drawing character"<<std::endl;
 
     Meshlist[0].RenderMesh(GL_TRIANGLE_STRIP);
 
@@ -227,6 +236,8 @@ void Character::render(GLfloat deltatime){
      glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
      glUniform1i(program->GetDebugLocation(),1);
 
+    std::cout<<"Drawing box"<<std::endl;
+
      Meshlist[1].RenderMesh(GL_LINE_LOOP);
 
      Meshlist[1].ClearMesh();
@@ -234,6 +245,10 @@ void Character::render(GLfloat deltatime){
     }
     glUseProgram(0);
     
+}
+
+GLuint Character::getVAO(){
+    return Meshlist[0].getVAO();
 }
 
 Character::~Character(){

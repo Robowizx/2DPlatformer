@@ -15,14 +15,16 @@ void Shader::CreateFromString(const char* vertexCode, const char* fragmentCode)
 	CompileShader(vertexCode, fragmentCode);
 }
 
-void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLocation)
+void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLocation,GLuint VAO)
 {
 	std::string vertexString = ReadFile(vertexLocation);
 	std::string fragmentString = ReadFile(fragmentLocation);
 	const char* vertexCode = vertexString.c_str();
 	const char* fragmentCode = fragmentString.c_str();
 
+    glBindVertexArray(VAO);
 	CompileShader(vertexCode, fragmentCode);
+	glBindVertexArray(0);
 }
 
 std::string Shader::ReadFile(const char* fileLocation)
@@ -71,14 +73,14 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 		return;
 	}
 
-	glValidateProgram(shaderID);
-	glGetProgramiv(shaderID, GL_VALIDATE_STATUS, &result);
-	if (!result)
-	{
-		glGetProgramInfoLog(shaderID, sizeof(eLog), NULL, eLog);
-		std::cout<<"Error validating program: "<<eLog<<std::endl;
-		return;
-	}
+	// glValidateProgram(shaderID);
+	// glGetProgramiv(shaderID, GL_VALIDATE_STATUS, &result);
+	// if (!result)
+	// {
+	// 	glGetProgramInfoLog(shaderID, sizeof(eLog), NULL, eLog);
+	// 	std::cout<<"Error validating program: "<<eLog<<std::endl;
+	// 	return;
+	// }
 
     uniformProjection = glGetUniformLocation(shaderID, "projection");
 	uniformModel = glGetUniformLocation(shaderID, "model");

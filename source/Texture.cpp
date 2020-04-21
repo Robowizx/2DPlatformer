@@ -7,6 +7,7 @@ Texture::Texture()
 	height = 0;
 	bitDepth = 0;
 	fileLocation = nullptr;
+	tunit = GL_TEXTURE0;
 }
 
 Texture::Texture(char* fileLoc)
@@ -45,6 +46,7 @@ void Texture::LoadTexture()
 
 void Texture::UseTexture(GLenum texunit)
 {
+	tunit = texunit;
 	glActiveTexture(texunit);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 }
@@ -64,5 +66,5 @@ void Texture::ClearTexture(GLenum texunit)
 
 Texture::~Texture()
 {
-	ClearTexture();
+	ClearTexture(tunit);
 }

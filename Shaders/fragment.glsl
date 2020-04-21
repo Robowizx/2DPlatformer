@@ -5,7 +5,7 @@ out vec4 color;
 in vec2 texCoord;
 
 uniform sampler2D texunit;
-uniform bool debug;
+uniform int debug;
 
 void main(){
  if(debug == 1){

@@ -13,7 +13,7 @@ public:
 	Shader();
 
 	void CreateFromString(const char* vertexCode, const char* fragmentCode);
-	void CreateFromFiles(const char* vertexLocation, const char* fragmentLocation);
+	void CreateFromFiles(const char* vertexLocation, const char* fragmentLocation,GLuint VAO);
 
 	GLuint GetProjectionLocation();
 	GLuint GetModelLocation();
