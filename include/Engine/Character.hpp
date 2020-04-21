@@ -43,7 +43,7 @@ class Character
         void setJump();
         void gforce(GLfloat deltatime);
 
-        GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,change,L,R,B,T,scale,timef;
+        GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,L,R,B,T,scale,timef;
         int direction,frame;
         std::string state;
         bool debug,*keys;

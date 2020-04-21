@@ -16,7 +16,6 @@ Character::Character(GLfloat x, GLfloat y, char* mfile,char* tfile, bool dbug, b
     finalVY = 0.0f;
     timea = 0.0f;
     timef = 0.0f;
-    change=0.0f;
     scale = 1.0f;
     state = IDLE;
 
@@ -142,8 +141,15 @@ void Character::gforce(GLfloat deltatime){
     }
     posy += (finalVY * deltatime);
     if((posy+diff)<bounds[2]){
-     finalVY = (finalVY*deltatime);    
+     finalVY = (finalVY*deltatime)-(posy+diff);
+     posy -= (posy+diff);
+     initalVY=0.0f;    
     }
+    else
+    {
+      initalVY = finalVY;
+    }
+    
 }
 
 void Character::render(GLfloat deltatime){
