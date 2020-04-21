@@ -36,11 +36,11 @@ class Character
         void meshInit();
         void stateUpdate();
         GLfloat setDirection();
-        void setIdle();
-        void setRun();
-        void setAttack1();
-        void setAttack2();
-        void setJump();
+        // void setIdle();
+        // void setRun();
+        // void setAttack1();
+        // void setAttack2();
+        // void setJump();
         void gforce(GLfloat deltatime);
 
         GLfloat posx, posy, gravity,velX,initalVY,finalVY,timea,L,R,B,T,timef;

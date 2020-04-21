@@ -69,7 +69,8 @@ void Character::meshInit(){
         Mesh x;
         Meshlist.push_back(x);
     }
-    Meshlist[0].CreateMesh(vertices,8,4);    
+    Meshlist[0].CreateMesh(vertices,8,4);
+    Meshlist[0].bindVAO();    
 }
 
 void Character::stateUpdate(){
@@ -164,20 +165,10 @@ void Character::render(GLfloat deltatime){
     gforce(deltatime);
     index = setDirection();
     if(index){
+        posx+=index;
         scale=-1.0f;
     }
-    LRBT();
-    if(debug){
-     vertices[0]=L;
-     vertices[1]=B;
-     vertices[2]=L;
-     vertices[3]=T;
-     vertices[4]=R;
-     vertices[5]=B;
-     vertices[6]=R;
-     vertices[7]=T;
-     Meshlist[1].CreateMesh(vertices,8,4);
-    }
+    
 
     for(int i=0;i<8;i++){
         if(i%2==0){
@@ -203,10 +194,24 @@ void Character::render(GLfloat deltatime){
     model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
 
     glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
-    glUniform1i(program->GetDebugLocation(),1);
+    glUniform1i(program->GetDebugLocation(),0);
     glUniform1i(program->GetSamplerLocation(),0);
 
     Meshlist[0].RenderMesh(GL_TRIANGLE_STRIP);
+
+    LRBT();
+    if(debug){
+     vertices[0]=L;
+     vertices[1]=B;
+     vertices[2]=L;
+     vertices[3]=T;
+     vertices[4]=R;
+     vertices[5]=B;
+     vertices[6]=R;
+     vertices[7]=T;
+     Meshlist[1].CreateMesh(vertices,8,4);
+
+    }
     
 }
 
