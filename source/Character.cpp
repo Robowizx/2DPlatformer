@@ -69,3 +69,7 @@ void Character::meshInit(){
         Meshlist.push_back(x);
     }    
 }
+
+void Character::render(GLfloat deltatime){
+
+}
