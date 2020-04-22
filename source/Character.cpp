@@ -142,10 +142,14 @@ void Character::render(GLfloat deltatime)
         //     posx += index;
     }
     model = glm::translate(model,glm::vec3(0.0f,finalVY,0.0f));
+    model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
     if(index != 0.0f){
         std::cout<<"scale = "<<scale<<std::endl;
+        for(int i=0;i<16;i++){
+            std::cout<<glm::value_ptr(model)[i]<<", ";
+        }
+        std::cout<<std::endl;
     }
-    model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
     glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
     glUniform1i(program->GetDebugLocation(),0);
     glUniform1i(program->GetSamplerLocation(),0);
