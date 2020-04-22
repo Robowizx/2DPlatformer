@@ -83,7 +83,7 @@ GLfloat Character::setDirection(){
     
     
     if((keys[GLFW_KEY_LEFT] && direction) || (keys[GLFW_KEY_RIGHT] && (!direction))){
-        std::cout<<"left key = "<<keys[GLFW_KEY_LEFT]<<" right key = "<<keys[GLFW_KEY_RIGHT]<<std::endl;
+        std::cout<<"left key = "<<keys[GLFW_KEY_LEFT]<<" right key = "<<keys[GLFW_KEY_RIGHT]<<"direction = "<<direction<<std::endl;
         direction = !direction;
         GLfloat out = frames[frame]["index"].asFloat();
         std::cout<<"index = "<<out<<std::endl;
@@ -141,7 +141,10 @@ void Character::render(GLfloat deltatime)
         // else
         //     posx += index;
     }
-    model = glm::translate(model,glm::vec3(2.0f*index,finalVY,0.0f));
+    model = glm::translate(model,glm::vec3(0.0f,finalVY,0.0f));
+    if(index != 0.0f){
+        std::cout<<"scale = "<<scale<<std::endl;
+    }
     model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
     glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
     glUniform1i(program->GetDebugLocation(),0);
