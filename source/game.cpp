@@ -24,9 +24,10 @@ int main(){
     if(gameWindow.initialise()==1){
         return 1;
     }
-    hero = Character(512.0f,232.0f,metafile,texfile,DEBUG,gameWindow.getsKeys(),true,program);
-    program->CreateFromFiles(vertexloc,fragmentloc,hero.getVAO());
-    glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,0.000001f);
+    hero = Character(512.0f,232.0f,program);
+    program->CreateFromFiles(vertexloc,fragmentloc);
+    glBindVertexArray(0);
+    glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-0.000001f);
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
 
     while(!gameWindow.getShouldClose()){
@@ -39,7 +40,7 @@ int main(){
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        hero.render(deltatime);
+        hero.render();
 
         gameWindow.swapBuffers();
     }

@@ -26,6 +26,7 @@ void Mesh::CreateMesh(GLfloat *vertices, unsigned int size, unsigned int numOfVe
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
+	std::cout<<"Mesh created."<<std::endl;
 }
 
 GLuint Mesh::getVAO(){

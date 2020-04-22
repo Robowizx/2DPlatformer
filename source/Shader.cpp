@@ -15,16 +15,16 @@ void Shader::CreateFromString(const char* vertexCode, const char* fragmentCode)
 	CompileShader(vertexCode, fragmentCode);
 }
 
-void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLocation,GLuint VAO)
+void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLocation)
 {
 	std::string vertexString = ReadFile(vertexLocation);
 	std::string fragmentString = ReadFile(fragmentLocation);
 	const char* vertexCode = vertexString.c_str();
 	const char* fragmentCode = fragmentString.c_str();
 
-    glBindVertexArray(VAO);
+    //glBindVertexArray(VAO);
 	CompileShader(vertexCode, fragmentCode);
-	glBindVertexArray(0);
+	//glBindVertexArray(0);
 }
 
 std::string Shader::ReadFile(const char* fileLocation)
@@ -54,7 +54,6 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 
 	if (!shaderID)
 	{
-		std::cout<<"Error creating shader program!"<<std::endl;
 		return;
 	}
 
@@ -112,6 +111,7 @@ GLuint Shader::GetSamplerLocation()
 void Shader::UseShader()
 {
 	glUseProgram(shaderID);
+	std::cout<<"using shader "<<shaderID<<std::endl;
 }
 
 void Shader::ClearShader()
