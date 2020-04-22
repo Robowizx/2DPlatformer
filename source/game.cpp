@@ -12,9 +12,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
  Window gameWindow;
- Character hero;
+ Character* hero;
  Shader* program = new Shader();
- Mesh object2;
  char metafile[] = "Textures/hero/hero_calc.json";
  char texfile[] = "Textures/hero/hero.png";
  char vertexloc[] = "Shaders/vertex.glsl";
@@ -27,11 +26,13 @@ int main(){
         return 1;
     }
 
-    hero = Character(512.0f,232.0f,program);
+    hero = new Character(512.0f,232.0f,metafile,texfile,DEBUG, gameWindow.getsKeys(),true,program);
     program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
-    glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-0.0000001f);
+    program->UseShader();
+    glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-1.0f);
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
+    glUseProgram(0);
 
     while(!gameWindow.getShouldClose()){
         GLfloat now = glfwGetTime();
@@ -43,8 +44,8 @@ int main(){
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        hero.render();
-
+        hero->render(deltatime);
+  
         gameWindow.swapBuffers();
     }
      

@@ -5,8 +5,11 @@ out vec4 color;
 in vec2 texCoord;
 
 uniform sampler2D texunit;
+uniform int debug;
 
 void main(){
- 
- color = vec4(0.0f,1.0f,0.0f,1.0f);  
+  if(debug == 1)
+    color = vec4(0.0f,1.0f,0.0f,1.0f);
+  else
+    color = texture(texunit,texCoord);  
 }
