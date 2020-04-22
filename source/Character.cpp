@@ -36,6 +36,7 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     meta = root["meta"];
     order = animation[state]["list"];
     frame = order[0].asInt();
+    std::cout<<"mirror = "<<frames[frame]["index"].asFloat()<<std::endl;
 
     LRBT();
 
@@ -80,13 +81,17 @@ void Character::gforce(GLfloat deltatime)
 
 GLfloat Character::setDirection(){
     
-    std::cout<<"left key = "<<keys[GLFW_KEY_LEFT]<<" right key = "<<keys[GLFW_KEY_RIGHT]<<std::endl;
+    
     if((keys[GLFW_KEY_LEFT] && direction) || (keys[GLFW_KEY_RIGHT] && (!direction))){
+        std::cout<<"left key = "<<keys[GLFW_KEY_LEFT]<<" right key = "<<keys[GLFW_KEY_RIGHT]<<std::endl;
         direction = !direction;
-        return frames[frame]["index"].asFloat();
+        GLfloat out = frames[frame]["index"].asFloat();
+        std::cout<<"index = "<<out<<std::endl;
+        return out;
     }
-    else
+    else{
         return 0.0f;
+    }    
 }
 
 void Character::render(GLfloat deltatime)
@@ -127,13 +132,14 @@ void Character::render(GLfloat deltatime)
 
     gforce(deltatime);
     index = setDirection();
+    //std::cout<<"index = "<<index<<std::endl;
     if(index != 0.0f){
-        std::cout<<"chaging"<<std::endl;
+        std::cout<<"changing = "<<index<<std::endl;
         scale= -1.0f;
-        if(direction)
-            posx -= index;
-        else
-            posx += index;
+        // if(direction)
+        //     posx -= index;
+        // else
+        //     posx += index;
     }
     model = glm::translate(model,glm::vec3(2.0f*index,finalVY,0.0f));
     model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
