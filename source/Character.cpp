@@ -10,6 +10,7 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     program = prg;
     debug = dbug;
     keys = k;
+    direction = dir;
     gravity = -9.8f;
     initialVY = 0.0f;
     finalVY = 0.0f;

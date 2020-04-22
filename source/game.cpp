@@ -34,6 +34,10 @@ int main(){
     program->UseShader();
     glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-1.0f);
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
+    for(int i=0;i<16;i++){
+            std::cout<<glm::value_ptr(projection)[i]<<", ";
+        }
+        std::cout<<std::endl;
     glUseProgram(0);
 
     while(!gameWindow.getShouldClose()){
