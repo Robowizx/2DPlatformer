@@ -111,7 +111,6 @@ GLuint Shader::GetSamplerLocation()
 void Shader::UseShader()
 {
 	glUseProgram(shaderID);
-	std::cout<<"using shader "<<shaderID<<std::endl;
 }
 
 void Shader::ClearShader()
