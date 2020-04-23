@@ -34,8 +34,8 @@ class Character
     private:
         void LRBT();
         void gforce(GLfloat deltatime);
-        GLfloat setDirection(); 
-        GLfloat posx,posy,gravity,initialVY,finalVY,timea,change,L,R,B,T;
+        bool setDirection(); 
+        GLfloat posx,posy,gravity,velX,initialVY,finalVY,finalVX,scale,timea,change,L,R,B,T;
         int frame;
         bool debug,direction,*keys;
         std::string state;

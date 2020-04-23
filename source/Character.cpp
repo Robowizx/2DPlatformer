@@ -12,18 +12,25 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     keys = k;
     direction = dir;
     gravity = -9.8f;
+    velX = 128.0f;
     initialVY = 0.0f;
     finalVY = 0.0f;
+    finalVX = 0.0f;
+    scale = 1.0f;
     timea = 0.0f;
     change = 0.0f;
     state = IDLE;
     model = glm::mat4(1.0f);
 
-    for(int i =0;i<8;i++){
-        if(i%2==0)
-            vertices[i] += posx;
+    for(int i=0;i<8;i++){
+        if(i%2==0){
+           if(!direction && i>2)
+            vertices[i]+=(posx-512.0f);
+           else
+            vertices[i]+=posx; 
+        }    
         else
-            vertices[i] += posy;    
+            vertices[i]+=posy;
     }
 
     tex = Texture(tfile);
@@ -37,7 +44,7 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     meta = root["meta"];
     order = animation[state]["list"];
     frame = order[0].asInt();
-    std::cout<<"mirror = "<<frames[frame]["index"].asFloat()<<std::endl;
+   // std::cout<<"mirror = "<<frames[frame]["index"].asFloat()<<std::endl;
 
     LRBT();
 
@@ -47,10 +54,18 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
 
 void Character::LRBT()
 {
-    L = posx + (2.0f*frames[frame]["L"][0].asFloat());
-    R = posx + 256.0f - (2.0f*frames[frame]["R"][0].asFloat());
-    B = posy + (2.0f*frames[frame]["B"][0].asFloat());
-    T = posy + 256.0f - (2.0f*frames[frame]["T"][0].asFloat());
+    if(direction){
+        L = posx + (2.0f*frames[frame]["L"][0].asFloat());
+        R = posx + 256.0f - (2.0f*frames[frame]["R"][0].asFloat());
+        B = posy + (2.0f*frames[frame]["B"][0].asFloat());
+        T = posy + 256.0f - (2.0f*frames[frame]["T"][0].asFloat());
+   }
+   else{
+        R = posx - (2.0f*frames[frame]["L"][0].asFloat());
+        L = posx - 256.0f + (2.0f*frames[frame]["R"][0].asFloat());
+        B = posy + (2.0f*frames[frame]["B"][0].asFloat());
+        T = posy + 256.0f - (2.0f*frames[frame]["T"][0].asFloat());
+    }
 }
 
 void Character::gforce(GLfloat deltatime)
@@ -63,16 +78,19 @@ void Character::gforce(GLfloat deltatime)
         timea += deltatime;
     }
     else{
+        //std::cout<<"shutting gravity"<<std::endl;
         timea = 0.0f;
         finalVY = initialVY;
     }
     initialVY = finalVY;
 
+    //std::cout<<posy<<" "<<B<<" "<<diff<<std::endl;
     posy += (finalVY*deltatime);
+    
     if((posy+diff)<bound[2]){
 
-        finalVY = (finalVY*deltatime)-(posy+diff);
-        posy -= (posy+diff);
+        finalVY = (finalVY*deltatime)-((posy+diff)-bound[2]);
+        posy -= ((posy+diff)-bound[2]);
     }
     else{
         finalVY = (finalVY*deltatime);
@@ -80,18 +98,27 @@ void Character::gforce(GLfloat deltatime)
     
 }
 
-GLfloat Character::setDirection(){
+bool Character::setDirection(){
     
     
-    if((keys[GLFW_KEY_LEFT] && direction) || (keys[GLFW_KEY_RIGHT] && (!direction))){
-        std::cout<<"left key = "<<keys[GLFW_KEY_LEFT]<<" right key = "<<keys[GLFW_KEY_RIGHT]<<"direction = "<<direction<<std::endl;
+    if(((keys[GLFW_KEY_LEFT] && direction) || (keys[GLFW_KEY_RIGHT] && (!direction))) && (!(keys[GLFW_KEY_LEFT] && keys[GLFW_KEY_RIGHT]))){
+       // std::cout<<"left key = "<<keys[GLFW_KEY_LEFT]<<" right key = "<<keys[GLFW_KEY_RIGHT]<<"direction = "<<direction<<std::endl;
         direction = !direction;
-        GLfloat out = frames[frame]["index"].asFloat();
-        std::cout<<"index = "<<out<<std::endl;
-        return out;
+        scale= -1.0f;
+        GLfloat index = frames[frame]["index"].asFloat();
+        if(!direction){
+            finalVX += 2.0f*(posx-index)+256.0f;
+            posx += (256.0f-(2.0f*index));
+        }
+        else{
+            finalVX += 2.0f*(posx+index)-256.0f;
+            posx += ((2.0f*index)-256.0f);
+        }
+       // std::cout<<"index = "<<out<<std::endl;
+        return true;
     }
     else{
-        return 0.0f;
+        return false;
     }    
 }
 
@@ -102,8 +129,8 @@ void Character::render(GLfloat deltatime)
     GLfloat frameX = frames[frame]["x"].asFloat();
     GLfloat frameY = frames[frame]["y"].asFloat();
     GLfloat size = frames[frame]["w"].asFloat();
-    GLfloat index=0.0f,scale = 1.0f;
     //std::cout<<"imgX = "<<imgX<<" imgY = "<<imgY<<" frameX = "<<frameX<<" frameY = "<<frameY<<" size = "<<size<<std::endl;
+    
     for(int i = 0;i<8;i++){
        if(i%2==0){
 
@@ -118,9 +145,7 @@ void Character::render(GLfloat deltatime)
            else
             vertices[i] = (frameY/imgY); 
        }
-       //std::cout<<vertices[i]<<" , ";
     }  
-    //std::cout<<std::endl;
 
     object.ClearUV();
     object.LoadUV(vertices,8);
@@ -129,34 +154,20 @@ void Character::render(GLfloat deltatime)
 
     program->UseShader();
 
-    //gforce(deltatime);
-
+    setDirection();
     gforce(deltatime);
-    index = setDirection();
-    //std::cout<<"index = "<<index<<std::endl;
-    if(index != 0.0f){
-        std::cout<<"changing = "<<index<<std::endl;
-        scale= -1.0f;
-        // if(direction)
-        //     posx -= index;
-        // else
-        //     posx += index;
-    }
-    model = glm::translate(model,glm::vec3(0.0f,finalVY,0.0f));
+    
+
+    model = glm::translate(model,glm::vec3(finalVX,finalVY,0.0f));
     model = glm::scale(model,glm::vec3(scale,1.0f,1.0f));
-    if(index != 0.0f){
-        std::cout<<"scale = "<<scale<<std::endl;
-        for(int i=0;i<16;i++){
-            std::cout<<glm::value_ptr(model)[i]<<", ";
-        }
-        std::cout<<std::endl;
-    }
     glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
     glUniform1i(program->GetDebugLocation(),0);
     glUniform1i(program->GetSamplerLocation(),0);
     
     object.RenderMesh(GL_TRIANGLE_STRIP);
     
+    scale=1.0f;
+    finalVX=0.0f;
     glUseProgram(0);
 
 }
