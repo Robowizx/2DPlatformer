@@ -36,7 +36,9 @@ class Character
         void gforce(GLfloat deltatime);
         bool setDirection(); 
         void stateUpdate(GLfloat deltatime);
+        void setState(std::string st,GLfloat deltatime);
         void setRun(GLfloat deltatime);
+        void setAttack(GLfloat deltatime);
         GLfloat posx,posy,gravity,velX,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,ipos,timef;
         int frame,anim_index;
         bool debug,direction,*keys;

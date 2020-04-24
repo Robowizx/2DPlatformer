@@ -1,5 +1,5 @@
 #define STB_IMAGE_IMPLEMENTATION
-#define DEBUG false
+#define DEBUG true
 #define RIGHT 1
 #define LEFT -1
 
@@ -13,9 +13,24 @@
 
  Window gameWindow;
  Character* hero;
+ Mesh* background = new Mesh();
+ Texture img;
  Shader* program = new Shader();
+ GLfloat vertices[] ={
+     0.0f,0.0f,
+     0.0f,720.0f,
+     1280.0f,0.0f,
+     1280.0f,720.0f
+ };
+ GLfloat UV[]={
+     0.0f,1.0f,
+     0.0f,0.0f,
+     1.0f,1.0f,
+     1.0f,0.0f
+ };
  char metafile[] = "Textures/hero/hero_calc.json";
  char texfile[] = "Textures/hero/hero.png";
+ char back[] = "Textures/level/Battleground2.png";
  char vertexloc[] = "Shaders/vertex.glsl";
  char fragmentloc[] = "Shaders/fragment.glsl";
  GLfloat lastime=0.0f,deltatime=0.0f;
@@ -28,6 +43,11 @@ int main(){
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+
+    background->CreateMesh(vertices,8,4);
+    background->LoadUV(UV,8);
+    img = Texture(back);
+    img.LoadTexture();
     hero = new Character(512.0f,157.0f,metafile,texfile,DEBUG, gameWindow.getsKeys(),true,program);
     program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
@@ -45,6 +65,14 @@ int main(){
 
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        program->UseShader();
+        img.UseTexture(GL_TEXTURE0);
+        glm::mat4 test(1.0f);
+        glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(test));
+        glUniform1i(program->GetDebugLocation(),0);
+        background->RenderMesh(GL_TRIANGLE_STRIP);
+        glUseProgram(0);
 
         hero->render(deltatime);
   

@@ -13,7 +13,7 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     ipos= x;
     direction = dir;
     gravity = -9.8f;
-    velX = 160.0f;
+    velX = 480.0f;
     initialVY = 0.0f;
     finalVY = 0.0f;
     finalVX = 0.0f;
@@ -134,17 +134,31 @@ bool Character::setDirection(){
         return false;
     }    
 }
+void Character::setState(std::string st,GLfloat deltatime){
+    state = st;
+    order = animation[state]["list"];
+    anim_index = 0;
+    frame = order[anim_index].asInt();
+    if(st != IDLE)
+        timef+=deltatime;
+    else
+        timef=0.0f;    
+}
 
 void Character::stateUpdate(GLfloat deltatime)
 {
     if(state == RUN){
-        if((!keys[GLFW_KEY_LEFT]) &&  (!keys[GLFW_KEY_RIGHT]))
+        if(keys[GLFW_KEY_Z]){
+            setState(ATTACK_1,deltatime);
+            setAttack(deltatime);
+        }
+        else if(keys[GLFW_KEY_X]){
+            setState(ATTACK_2,deltatime);
+            setAttack(deltatime);
+        }
+        else if((!keys[GLFW_KEY_LEFT]) &&  (!keys[GLFW_KEY_RIGHT]))
         {
-            state = IDLE;
-            timef=0.0f;
-            order = animation[state]["list"];
-            anim_index = 0;
-            frame = order[anim_index].asInt();
+            setState(IDLE,deltatime);
         }
         else{
             if(timef>=0.09){
@@ -152,8 +166,7 @@ void Character::stateUpdate(GLfloat deltatime)
                 if(anim_index<(animation[state]["len"].asInt()-1))
                     anim_index++;
                 else
-                    anim_index=0;
-                        
+                    anim_index=0;         
             }
             else{
              timef+=deltatime;
@@ -163,16 +176,45 @@ void Character::stateUpdate(GLfloat deltatime)
             setRun(deltatime);
         }    
     }
+    else if(state == ATTACK_1 || state == ATTACK_2){
+        setAttack(deltatime);
+    }
     else{
         if((keys[GLFW_KEY_LEFT] || keys[GLFW_KEY_RIGHT]) && (!setDirection())){
-            state = RUN;
-            order = animation[state]["list"];
-            anim_index = 0; 
-            frame = order[anim_index].asInt();
-            timef+=deltatime;
+            setState(RUN,deltatime);
             setRun(deltatime);
+        }
+        else if(keys[GLFW_KEY_Z]){
+            setState(ATTACK_1,deltatime);
+            setAttack(deltatime);
+        }
+        else if(keys[GLFW_KEY_X]){
+            setState(ATTACK_2,deltatime);
+            setAttack(deltatime);
         }     
     }
+}
+
+void Character::setAttack(GLfloat deltatime)
+{
+            if(timef>=0.09){
+                timef=0.0;
+                if(anim_index<(animation[state]["len"].asInt()-1))
+                    anim_index++;
+                else
+                {
+                   state = IDLE;
+                   timef=0.0f;
+                   order = animation[state]["list"];
+                   anim_index = 0;
+                   frame = order[anim_index].asInt();  
+                }
+                        
+            }
+            else{
+             timef+=deltatime;
+            }
+            frame = order[anim_index].asInt();
 }
 
 void Character::setRun(GLfloat deltatime)
