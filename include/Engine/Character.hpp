@@ -35,15 +35,17 @@ class Character
         void LRBT();
         void gforce(GLfloat deltatime);
         bool setDirection(); 
-        GLfloat posx,posy,gravity,velX,initialVY,finalVY,finalVX,scale,timea,change,L,R,B,T;
-        int frame;
+        void stateUpdate(GLfloat deltatime);
+        void setRun(GLfloat deltatime);
+        GLfloat posx,posy,gravity,velX,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,ipos,timef;
+        int frame,anim_index;
         bool debug,direction,*keys;
         std::string state;
         Shader* program;
         glm::mat4 model;
         Json::Value animation, frames, meta, order;
         Texture tex;
-        Mesh object;
+        std::vector<Mesh*> objects;
         GLfloat bound[4] = {0.0f,1280.0f,0.0f,720.0f};
         GLfloat vertices[8] = {
             0.0f,0.0f,
