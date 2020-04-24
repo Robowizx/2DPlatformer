@@ -1,5 +1,5 @@
 #define STB_IMAGE_IMPLEMENTATION
-#define DEBUG true
+#define DEBUG false
 #define RIGHT 1
 #define LEFT -1
 

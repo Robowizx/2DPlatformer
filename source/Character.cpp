@@ -12,8 +12,7 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     keys = k;
     ipos= x;
     direction = dir;
-    gravity = -9.8f;
-    velX = 480.0f;
+    gravity = -39.2f;
     initialVY = 0.0f;
     finalVY = 0.0f;
     finalVX = 0.0f;
@@ -146,9 +145,26 @@ void Character::setState(std::string st,GLfloat deltatime){
 }
 
 void Character::stateUpdate(GLfloat deltatime)
-{
-    if(state == RUN){
-        if(keys[GLFW_KEY_Z]){
+{   
+    if(state == JUMP){
+        if(finalVY<=0.0f && B>bound[2]){
+            setState(FALL,deltatime);
+            setFall(deltatime);
+        }
+        else{
+            setJump(deltatime);
+        }
+    }
+    else if(state == FALL){
+       setFall(deltatime);
+    }
+    else if(state == RUN){
+        if(keys[GLFW_KEY_UP]){
+            initialVY = 612;
+            setState(JUMP,deltatime);
+            setJump(deltatime);
+        }
+        else if(keys[GLFW_KEY_Z]){
             setState(ATTACK_1,deltatime);
             setAttack(deltatime);
         }
@@ -173,16 +189,26 @@ void Character::stateUpdate(GLfloat deltatime)
             }
             frame = order[anim_index].asInt();
             //std::cout<<"anim_index = "<<anim_index<<" frame = "<<frame<<std::endl;
-            setRun(deltatime);
+            setRun(deltatime,480.0f);
         }    
     }
     else if(state == ATTACK_1 || state == ATTACK_2){
         setAttack(deltatime);
     }
     else{
-        if((keys[GLFW_KEY_LEFT] || keys[GLFW_KEY_RIGHT]) && (!setDirection())){
+        //std::cout<<"UP = "<<keys[GLFW_KEY_UP]<<"finalVY = "<<finalVY<<" B = "<<B<<std::endl;
+        if(finalVY<0.0f && B>bound[2]){
+            setState(FALL,deltatime);
+            setFall(deltatime);
+        }
+        else if(keys[GLFW_KEY_UP]){
+            initialVY = 612;
+            setState(JUMP,deltatime);
+            setJump(deltatime);
+        }
+        else if((keys[GLFW_KEY_LEFT] || keys[GLFW_KEY_RIGHT]) && (!setDirection())){
             setState(RUN,deltatime);
-            setRun(deltatime);
+            setRun(deltatime,480.0f);
         }
         else if(keys[GLFW_KEY_Z]){
             setState(ATTACK_1,deltatime);
@@ -193,6 +219,38 @@ void Character::stateUpdate(GLfloat deltatime)
             setAttack(deltatime);
         }     
     }
+}
+
+void Character::setFall(GLfloat deltatime)
+{
+    if(timef>=0.09){
+        timef = 0.0f;
+        if(anim_index<1)
+            anim_index++;
+        else if(B==bound[2] && (anim_index<(animation[state]["len"].asInt()-1)))
+            anim_index++;
+        else
+            setState(IDLE,deltatime);       
+    }
+    else
+        timef+=deltatime;
+    frame = order[anim_index].asInt();
+    if(!setDirection())
+        setRun(deltatime,240.0f); 
+}
+
+void Character::setJump(GLfloat deltatime)
+{
+    if(timef>=0.09){
+        timef = 0.0f;
+        if(anim_index<(animation[state]["len"].asInt()-1))
+            anim_index++;
+    }
+    else
+        timef += deltatime;
+    frame = order[anim_index].asInt();
+    if(!setDirection())
+        setRun(deltatime,240.0f);    
 }
 
 void Character::setAttack(GLfloat deltatime)
@@ -217,7 +275,7 @@ void Character::setAttack(GLfloat deltatime)
             frame = order[anim_index].asInt();
 }
 
-void Character::setRun(GLfloat deltatime)
+void Character::setRun(GLfloat deltatime,GLfloat velX)
 {
         
         LRBT();
@@ -276,8 +334,7 @@ void Character::render(GLfloat deltatime)
     program->UseShader();
 
     stateUpdate(deltatime);
-   //std::cout<<"state = "<<state<<" posx = "<<posx<<" finalVX = "<<finalVX<<" L = "<<L<<" R = "<<R<<std::endl;
-    //setDirection();
+    //std::cout<<"state = "<<state<<std::endl;
     gforce(deltatime);
     
 
@@ -320,4 +377,14 @@ void Character::render(GLfloat deltatime)
         objects[1]->ClearMesh();
 
     }
+}
+
+Character::~Character()
+{
+    tex.ClearTexture(GL_TEXTURE0);
+    for(int i=0;i<objects.size();i++)
+        objects[i]->ClearMesh();
+        animation.clear();
+        frames.clear();
+        order.clear();
 }

@@ -22,4 +22,3 @@ private:
 	GLuint VAO, VBO, TBO;
 	GLsizei vertexCount;
 };
-

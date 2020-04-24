@@ -30,6 +30,7 @@ class Character
         Character();
         Character(GLfloat x,GLfloat y,char* mfile, char*tfile, bool dbug, bool* k,bool dir, Shader* prg);
         void render(GLfloat deltatime);
+        ~Character();
 
     private:
         void LRBT();
@@ -37,9 +38,11 @@ class Character
         bool setDirection(); 
         void stateUpdate(GLfloat deltatime);
         void setState(std::string st,GLfloat deltatime);
-        void setRun(GLfloat deltatime);
+        void setRun(GLfloat deltatime,GLfloat velX);
+        void setFall(GLfloat deltatime);
+        void setJump(GLfloat deltatime);
         void setAttack(GLfloat deltatime);
-        GLfloat posx,posy,gravity,velX,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,ipos,timef;
+        GLfloat posx,posy,gravity,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,ipos,timef;
         int frame,anim_index;
         bool debug,direction,*keys;
         std::string state;
