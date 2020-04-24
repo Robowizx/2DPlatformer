@@ -28,7 +28,7 @@ int main(){
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
-    hero = new Character(512.0f,232.0f,metafile,texfile,DEBUG, gameWindow.getsKeys(),true,program);
+    hero = new Character(512.0f,157.0f,metafile,texfile,DEBUG, gameWindow.getsKeys(),true,program);
     program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
     program->UseShader();

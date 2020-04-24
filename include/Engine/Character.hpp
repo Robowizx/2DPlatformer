@@ -46,7 +46,7 @@ class Character
         Json::Value animation, frames, meta, order;
         Texture tex;
         std::vector<Mesh*> objects;
-        GLfloat bound[4] = {0.0f,1280.0f,0.0f,720.0f};
+        GLfloat bound[4] = {0.0f,1280.0f,157.0f,720.0f};
         GLfloat vertices[8] = {
             0.0f,0.0f,
             0.0f,256.0f,

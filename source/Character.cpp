@@ -13,7 +13,7 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     ipos= x;
     direction = dir;
     gravity = -9.8f;
-    velX = 256.0f;
+    velX = 160.0f;
     initialVY = 0.0f;
     finalVY = 0.0f;
     finalVX = 0.0f;
@@ -147,7 +147,7 @@ void Character::stateUpdate(GLfloat deltatime)
             frame = order[anim_index].asInt();
         }
         else{
-            if(timef>=0.1){
+            if(timef>=0.09){
                 timef=0.0;
                 if(anim_index<(animation[state]["len"].asInt()-1))
                     anim_index++;
@@ -155,9 +155,11 @@ void Character::stateUpdate(GLfloat deltatime)
                     anim_index=0;
                         
             }
-            timef+=deltatime;
+            else{
+             timef+=deltatime;
+            }
             frame = order[anim_index].asInt();
-            std::cout<<"anim_index = "<<anim_index<<" frame = "<<frame<<std::endl;
+            //std::cout<<"anim_index = "<<anim_index<<" frame = "<<frame<<std::endl;
             setRun(deltatime);
         }    
     }
