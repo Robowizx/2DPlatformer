@@ -1,7 +1,5 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define DEBUG true
-#define RIGHT 1
-#define LEFT -1
 
 #include <Engine/WindowGen.hpp>
 #include <Engine/Shader.hpp>
@@ -42,7 +40,7 @@ int main(){
     }
 
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     background->CreateMesh(vertices,8,4);
     background->LoadUV(UV,8);

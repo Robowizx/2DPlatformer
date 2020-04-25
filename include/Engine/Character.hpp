@@ -8,10 +8,11 @@
 #define FALL "fall"
 #define HURT "hurt"
 #define DEATH "death"
+#define ANIM_SPEED 0.05f
 #define GRAVITY -39.2f
-#define ANIM_SPEED 0.09f
 #define R_SPEED 480.0f
-#define J_SPEED 240.0f
+#define RJ_SPEED 240.0f
+#define J_SPEED 612.0f
 
 #include "Mesh.hpp"
 #include "Shader.hpp"
