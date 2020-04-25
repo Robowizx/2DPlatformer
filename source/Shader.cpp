@@ -5,6 +5,8 @@ Shader::Shader()
 	shaderID = 0;
 	uniformModel = 0;
 	uniformProjection = 0;
+	uniformDebug = 0;
+	uniformSampler = 0;
     //uniformView = 0;
 }
 
@@ -20,7 +22,9 @@ void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLoc
 	const char* vertexCode = vertexString.c_str();
 	const char* fragmentCode = fragmentString.c_str();
 
+    //glBindVertexArray(VAO);
 	CompileShader(vertexCode, fragmentCode);
+	//glBindVertexArray(0);
 }
 
 std::string Shader::ReadFile(const char* fileLocation)
@@ -50,7 +54,6 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 
 	if (!shaderID)
 	{
-		std::cout<<"Error creating shader program!"<<std::endl;
 		return;
 	}
 
@@ -69,17 +72,19 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 		return;
 	}
 
-	glValidateProgram(shaderID);
-	glGetProgramiv(shaderID, GL_VALIDATE_STATUS, &result);
-	if (!result)
-	{
-		glGetProgramInfoLog(shaderID, sizeof(eLog), NULL, eLog);
-		std::cout<<"Error validating program: "<<eLog<<std::endl;
-		return;
-	}
+	// glValidateProgram(shaderID);
+	// glGetProgramiv(shaderID, GL_VALIDATE_STATUS, &result);
+	// if (!result)
+	// {
+	// 	glGetProgramInfoLog(shaderID, sizeof(eLog), NULL, eLog);
+	// 	std::cout<<"Error validating program: "<<eLog<<std::endl;
+	// 	return;
+	// }
 
     uniformProjection = glGetUniformLocation(shaderID, "projection");
 	uniformModel = glGetUniformLocation(shaderID, "model");
+	uniformDebug = glGetUniformLocation(shaderID,"debug");
+	uniformSampler = glGetUniformLocation(shaderID,"texunit");
 	//uniformView = glGetUniformLocation(shaderID, "view");
 }
 
@@ -90,6 +95,13 @@ GLuint Shader::GetProjectionLocation()
 GLuint Shader::GetModelLocation()
 {
 	return uniformModel;
+}GLuint Shader::GetDebugLocation()
+{
+	return uniformDebug;
+}
+GLuint Shader::GetSamplerLocation()
+{
+	return uniformSampler;
 }
 // GLuint Shader::GetViewLocation()
 // {
@@ -111,6 +123,8 @@ void Shader::ClearShader()
 
 	uniformModel = 0;
 	uniformProjection = 0;
+	uniformDebug = 0;
+	uniformSampler = 0;
     //uniformView = 0;
 }
 

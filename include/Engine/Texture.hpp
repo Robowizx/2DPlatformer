@@ -11,13 +11,14 @@ public:
 	Texture(char* fileLoc);
 
 	void LoadTexture();
-	void UseTexture();
-	void ClearTexture();
+	void UseTexture(GLenum texunit);
+	void ClearTexture(GLenum texunit);
 
 	~Texture();
 
 private:
 	GLuint textureID;
+	GLenum tunit;
 	int width, height, bitDepth;
 
 	char* fileLocation;

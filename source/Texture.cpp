@@ -7,6 +7,7 @@ Texture::Texture()
 	height = 0;
 	bitDepth = 0;
 	fileLocation = nullptr;
+	tunit = GL_TEXTURE0;
 }
 
 Texture::Texture(char* fileLoc)
@@ -43,14 +44,17 @@ void Texture::LoadTexture()
 	stbi_image_free(texData);
 }
 
-void Texture::UseTexture()
+void Texture::UseTexture(GLenum texunit)
 {
-	glActiveTexture(GL_TEXTURE0);
+	tunit = texunit;
+	glActiveTexture(texunit);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
-void Texture::ClearTexture()
+void Texture::ClearTexture(GLenum texunit)
 {
+	glActiveTexture(texunit);
+	glBindTexture(GL_TEXTURE_2D,0);
 	glDeleteTextures(1, &textureID);
 	textureID = 0;
 	width = 0;
@@ -62,5 +66,5 @@ void Texture::ClearTexture()
 
 Texture::~Texture()
 {
-	ClearTexture();
+	ClearTexture(tunit);
 }

@@ -1,112 +1,81 @@
 #define STB_IMAGE_IMPLEMENTATION
+#define DEBUG true
 
 #include <Engine/WindowGen.hpp>
-#include <Engine/Mesh.hpp>
 #include <Engine/Shader.hpp>
-#include <Engine/Texture.hpp>
-#include <Engine/Animation.hpp>
+#include <Engine/Character.hpp>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
  Window gameWindow;
- Mesh *object = new Mesh();
- Shader *program = new Shader();
- GLfloat deltaTime = 0.0f;
- GLfloat lastTime = 0.0f;
- Animation movement;
- GLfloat gravity=-5.0f,initialv=0.0f,finalv=0.0f,posx=512.0f,posy=232.0f,timea=0.0f,change=0.0f;
-
- Texture crackedsoil;
- char texfile[] = "Textures/hero/hero.png"; 
+ Character* hero;
+ Mesh* background = new Mesh();
+ Texture img;
+ Shader* program = new Shader();
+ GLfloat vertices[] ={
+     0.0f,0.0f,
+     0.0f,720.0f,
+     1280.0f,0.0f,
+     1280.0f,720.0f
+ };
+ GLfloat UV[]={
+     0.0f,1.0f,
+     0.0f,0.0f,
+     1.0f,1.0f,
+     1.0f,0.0f
+ };
+ char metafile[] = "Textures/hero/hero_calc.json";
+ char texfile[] = "Textures/hero/hero.png";
+ char back[] = "Textures/level/Battleground2.png";
+ char vertexloc[] = "Shaders/vertex.glsl";
+ char fragmentloc[] = "Shaders/fragment.glsl";
+ GLfloat lastime=0.0f,deltatime=0.0f;
 
 int main(){
     gameWindow = Window(1280,720);
-    GLfloat vertices[] = {
-        0.0f,0.0f,  0.3333f,1.0f,
-        0.0f,720.0f,   0.3333f,0.8333f,
-        1280.0f,0.0f,   0.5f,1.0f,
-        1280.0f,720.0f,    0.5f,0.8333f
-    };
-
-    float translation = 0.0f, scaling = 1.0f;
-    //right = false left = true (state)
-    bool leftKey = false,state=false,rightkey=false;
-
     if(gameWindow.initialise()==1){
         return 1;
     }
-    object->CreateMesh(vertices,16,4);
-    object->bindVAO();
-    program->CreateFromFiles("Shaders/vertex.glsl","Shaders/fragment.glsl");
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    background->CreateMesh(vertices,8,4);
+    background->LoadUV(UV,8);
+    img = Texture(back);
+    img.LoadTexture();
+    hero = new Character(512.0f,157.0f,metafile,texfile,DEBUG, gameWindow.getsKeys(),true,program);
+    program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
-
-    crackedsoil = Texture(texfile);
-    crackedsoil.LoadTexture();
-
-    glm::mat4 model(1.0f);
-    model = glm::translate(model,glm::vec3(posx,posy,0.0f));
-    model = glm::scale(model,glm::vec3(0.2f,0.356f,1.0f));
-    glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-0.0000001f);
-
     program->UseShader();
+    glm::mat4 projection = glm::ortho(0.0f,1280.0f,0.0f,720.0f,0.0f,-1.0f);
     glUniformMatrix4fv(program->GetProjectionLocation(),1,GL_FALSE,glm::value_ptr(projection));
-    crackedsoil.UseTexture();
+    glUseProgram(0);
+
     while(!gameWindow.getShouldClose()){
         GLfloat now = glfwGetTime();
-		deltaTime = now - lastTime; 
-		lastTime = now;
-
-        //gravity section
-        if(posy+38>0.0f){
-            finalv = initialv + (gravity*timea);
-            timea += deltaTime;
-            initialv = finalv;
-        }
-        else
-        {
-            timea = 0.0f;
-            finalv = 0.0f;   
-        }
-        posy += (finalv*deltaTime);
-        if(posy+38<0.0f){
-            change=(finalv*deltaTime)-(posy+38);
-            posy-=(posy+38); 
-        }
-        else{
-            change = (finalv*deltaTime);
-        }
-        //std::cout<<posy<<std::endl;
+        deltatime = now - lastime;
+        lastime = now;
 
         glfwPollEvents();
-        leftKey = movement.keyControl(gameWindow.getsKeys(),GLFW_KEY_LEFT);
-        rightkey = movement.keyControl(gameWindow.getsKeys(),GLFW_KEY_RIGHT);
-    
-        if(leftKey && !state){
-            std::cout<<"turning left"<<std::endl;
-            translation = 172.0f;
-            state = !state;
-            scaling = -1.0f;
-        }
-        else if(rightkey && state){
-            std::cout<<"turning right"<<std::endl;
-            translation = 172.0f;
-            state = !state;
-            scaling = -1.0f;
-        }
 
         glClearColor(0.0f,0.0f,0.0f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        model = glm::translate(model,glm::vec3(translation/0.2f,change/0.355f,0.0f));
-        model = glm::scale(model,glm::vec3(scaling,1.0f,1.0f));
-        translation = 0.0f;
-        scaling = 1.0f;
-        glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(model));
-        object->RenderMesh(GL_TRIANGLE_STRIP);
+
+        program->UseShader();
+        img.UseTexture(GL_TEXTURE0);
+        glm::mat4 test(1.0f);
+        glUniformMatrix4fv(program->GetModelLocation(),1,GL_FALSE,glm::value_ptr(test));
+        glUniform1i(program->GetDebugLocation(),0);
+        background->RenderMesh(GL_TRIANGLE_STRIP);
+        glUseProgram(0);
+
+        hero->render(deltatime);
+  
         gameWindow.swapBuffers();
     }
-     glUseProgram(0);
      
     return 0;
 }
