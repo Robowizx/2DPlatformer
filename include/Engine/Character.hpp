@@ -8,6 +8,10 @@
 #define FALL "fall"
 #define HURT "hurt"
 #define DEATH "death"
+#define GRAVITY -39.2f
+#define ANIM_SPEED 0.09f
+#define R_SPEED 480.0f
+#define J_SPEED 240.0f
 
 #include "Mesh.hpp"
 #include "Shader.hpp"
@@ -34,6 +38,7 @@ class Character
 
     private:
         void LRBT();
+        void ALRBT();
         void gforce(GLfloat deltatime);
         bool setDirection(); 
         void stateUpdate(GLfloat deltatime);
@@ -42,9 +47,9 @@ class Character
         void setFall(GLfloat deltatime);
         void setJump(GLfloat deltatime);
         void setAttack(GLfloat deltatime);
-        GLfloat posx,posy,gravity,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,ipos,timef;
+        GLfloat posx,posy,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,AL,AR,AB,AT,ipos,timef;
         int frame,anim_index;
-        bool debug,direction,*keys;
+        bool debug,direction,*keys,hitFlag;
         std::string state;
         Shader* program;
         glm::mat4 model;
