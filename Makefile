@@ -1,6 +1,6 @@
 .PHONY: mac clean linux
 mac: build game.o
-	g++ -std=c++17 ./build/game.o ./build/WindowGen.o ./build/Mesh.o ./build/Texture.o ./build/Shader.o ./build/Character.o -L ./lib/MacOS -framework OpenGL -framework Cocoa -framework IOKit -lGLEW.2.1.0 -lglfw.3.3 -ljsoncpp -o ./build/game
+	g++ -std=c++17 ./build/game.o ./build/WindowGen.o ./build/Mesh.o ./build/Texture.o ./build/Shader.o ./build/Character.o -L ./lib/MacOS -framework OpenGL -framework Cocoa -framework IOKit -lGLEW -lglfw3 -ljsoncpp -o ./build/game
 linux: build game.o
 	g++ -std=c++17 ./build/game.o ./build/WindowGen.o ./build/Mesh.o ./build/Shader.o ./build/Texture.o ./build/Character.o -L ./lib/Linux -lGL -lGLEW -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor -ljsoncpp -o ./build/game
 WindowGen.o: ./source/WindowGen.cpp

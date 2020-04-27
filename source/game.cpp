@@ -10,7 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
  Window gameWindow;
- Character* hero;
+ Character *hero,*enemy;
  Mesh* background = new Mesh();
  Texture img;
  Shader* program = new Shader();
@@ -26,14 +26,18 @@
      1.0f,1.0f,
      1.0f,0.0f
  };
- char metafile[] = "Textures/hero/hero_calc.json";
- char texfile[] = "Textures/hero/hero.png";
+ 
+ char metafile1[] = "Textures/hero/hero_calc.json";
+ char texfile1[] = "Textures/hero/hero.png";
+ char metafile2[] = "Textures/enemy/enemy_calc.json";
+ char texfile2[] = "Textures/enemy/enemy.png";
  char back[] = "Textures/level/Battleground2.png";
  char vertexloc[] = "Shaders/vertex.glsl";
  char fragmentloc[] = "Shaders/fragment.glsl";
  GLfloat lastime=0.0f,deltatime=0.0f;
 
 int main(){
+
     gameWindow = Window(1280,720);
     if(gameWindow.initialise()==1){
         return 1;
@@ -46,7 +50,8 @@ int main(){
     background->LoadUV(UV,8);
     img = Texture(back);
     img.LoadTexture();
-    hero = new Character(512.0f,157.0f,metafile,texfile,DEBUG, gameWindow.getsKeys(),true,program);
+    hero = new Character(1280.0f,157.0f,metafile1,texfile1,DEBUG, gameWindow.getsKeys(),false,program);
+    enemy = new Character(512.0f,157.0f,metafile2,texfile2,DEBUG,gameWindow.getsKeys(),false,program);
     program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
     program->UseShader();
@@ -72,6 +77,7 @@ int main(){
         background->RenderMesh(GL_TRIANGLE_STRIP);
         glUseProgram(0);
 
+        enemy->render(deltatime);
         hero->render(deltatime);
   
         gameWindow.swapBuffers();

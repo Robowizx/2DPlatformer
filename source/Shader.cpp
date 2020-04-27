@@ -17,6 +17,7 @@ void Shader::CreateFromString(const char* vertexCode, const char* fragmentCode)
 
 void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLocation)
 {
+	
 	std::string vertexString = ReadFile(vertexLocation);
 	std::string fragmentString = ReadFile(fragmentLocation);
 	const char* vertexCode = vertexString.c_str();

@@ -24,7 +24,7 @@ void Texture::LoadTexture()
 	unsigned char *texData = stbi_load(fileLocation, &width, &height, &bitDepth, 4);
 	if (!texData)
 	{
-		std::cout<<"failed to load file: "<<fileLocation<<std::endl;
+		std::cout<<"failed to load file: "<<fileLocation<<std::endl<<stbi_failure_reason()<<std::endl;
 		return;
 	}
 

@@ -9,7 +9,7 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     posy = y;
     program = prg;
     debug = dbug;
-    keys = k;
+    keys = k;   
     ipos= x;
     direction = dir;
     hitFlag = false;
@@ -21,6 +21,11 @@ Character::Character(GLfloat x,GLfloat y,char* mfile,char* tfile, bool dbug, boo
     timef = 0.0f;
     state = IDLE;
     model = glm::mat4(1.0f);
+
+    if(direction)
+        idir = 1.0f;
+    else
+        idir = -1.0f;    
 
     for(int i=0;i<8;i++){
         if(i%2==0){
@@ -134,22 +139,15 @@ bool Character::setDirection(){
     
     LRBT();
     if(((keys[GLFW_KEY_LEFT] && direction) || (keys[GLFW_KEY_RIGHT] && (!direction))) && (!(keys[GLFW_KEY_LEFT] && keys[GLFW_KEY_RIGHT]))){
-       // std::cout<<"left key = "<<keys[GLFW_KEY_LEFT]<<" right key = "<<keys[GLFW_KEY_RIGHT]<<"direction = "<<direction<<std::endl;
+
         direction = !direction;
         scale= -1.0f;
         GLfloat index = frames[frame]["index"].asFloat();
-        if(!direction){
-            //std::cout<<"before posx = "<<posx<<" finalVX = "<<finalVX<<std::endl;
-            finalVX = 2.0f*(ipos-index)+256.0f;
+        if(!direction)
             posx += (256.0f-(2.0f*index));
-        }
-        else{
-            //std::cout<<"before posx = "<<posx<<" finalVX = "<<finalVX<<std::endl;
-            finalVX = 2.0f*(ipos-index)+256;
-
+        else
             posx += ((2.0f*index)-256.0f);
-        }
-        //std::cout<<"after posx = "<<posx<<" finalVX = "<<finalVX<<std::endl;
+        finalVX = (2.0f*ipos)+(idir*(256-(2.0f*index)));
         return true;
     }
     else{
@@ -224,23 +222,26 @@ void Character::stateUpdate(GLfloat deltatime)
             setState(FALL,deltatime);
             setFall(deltatime);
         }
-        else if(keys[GLFW_KEY_UP]){
-            initialVY = J_SPEED;
-            setState(JUMP,deltatime);
-            setJump(deltatime);
-        }
-        else if((keys[GLFW_KEY_LEFT] || keys[GLFW_KEY_RIGHT]) && (!setDirection()) && (!(keys[GLFW_KEY_LEFT] && keys[GLFW_KEY_RIGHT]))){
-            setState(RUN,deltatime);
-            setRun(deltatime,R_SPEED);
-        }
-        else if(keys[GLFW_KEY_Z]){
-            setState(ATTACK_1,deltatime);
-            setAttack(deltatime);
-        }
-        else if(keys[GLFW_KEY_X]){
-            setState(ATTACK_2,deltatime);
-            setAttack(deltatime);
-        }     
+        if(keys != nullptr)
+        {
+            if(keys[GLFW_KEY_UP]){
+                initialVY = J_SPEED;
+                setState(JUMP,deltatime);
+                setJump(deltatime);
+            }
+            else if((keys[GLFW_KEY_LEFT] || keys[GLFW_KEY_RIGHT]) && (!setDirection()) && (!(keys[GLFW_KEY_LEFT] && keys[GLFW_KEY_RIGHT]))){
+                setState(RUN,deltatime);
+                setRun(deltatime,R_SPEED);
+            }
+            else if(keys[GLFW_KEY_Z]){
+                setState(ATTACK_1,deltatime);
+                setAttack(deltatime);
+            }
+            else if(keys[GLFW_KEY_X]){
+                setState(ATTACK_2,deltatime);
+                setAttack(deltatime);
+            }   
+        }  
     }
 }
 
@@ -259,8 +260,10 @@ void Character::setFall(GLfloat deltatime)
     else
         timef+=deltatime;
     frame = order[anim_index].asInt();
-    if(!setDirection())
-        setRun(deltatime,RJ_SPEED); 
+    if(keys != nullptr){
+        if(!setDirection())
+            setRun(deltatime,RJ_SPEED);
+    } 
 }
 
 void Character::setJump(GLfloat deltatime)
@@ -316,7 +319,7 @@ void Character::setRun(GLfloat deltatime,GLfloat velX)
             posx-=finalVX;
             if((posx-diff)<bound[0]){
                 finalVX = (velX*deltatime)-(bound[0]-(posx-diff));
-                posx+=(bound[0]-(posx-diff));
+                posx+=(bound[0]-(posx-diff));  
             }
         }
         else if(R<bound[1] && direction && keys[GLFW_KEY_RIGHT])
@@ -327,8 +330,10 @@ void Character::setRun(GLfloat deltatime,GLfloat velX)
             if((posx+diff)>bound[1]){
                 finalVX = (velX*deltatime)-((posx+diff)-bound[1]);
                 posx-=((posx+diff)-bound[1]);
+               
             }
         }
+        finalVX *= idir;
 }
 
 void Character::render(GLfloat deltatime)
@@ -364,6 +369,7 @@ void Character::render(GLfloat deltatime)
     program->UseShader();
 
     stateUpdate(deltatime);
+   //setDirection();
     //std::cout<<"state = "<<state<<std::endl;
     gforce(deltatime);
     

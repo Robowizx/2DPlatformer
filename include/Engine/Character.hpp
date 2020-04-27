@@ -48,7 +48,7 @@ class Character
         void setFall(GLfloat deltatime);
         void setJump(GLfloat deltatime);
         void setAttack(GLfloat deltatime);
-        GLfloat posx,posy,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,AL,AR,AB,AT,ipos,timef;
+        GLfloat posx,posy,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,AL,AR,AB,AT,ipos,idir,timef;
         int frame,anim_index;
         bool debug,direction,*keys,hitFlag;
         std::string state;
