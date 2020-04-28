@@ -9,10 +9,10 @@
 #define HURT "hurt"
 #define DEATH "death"
 #define ANIM_SPEED 0.05f
-#define GRAVITY -39.2f
-#define R_SPEED 480.0f
-#define RJ_SPEED 240.0f
-#define J_SPEED 612.0f
+#define GRAVITY -64.0f
+#define R_SPEED 256.0f
+#define RJ_SPEED 256.0f
+#define J_SPEED 512.0f
 
 #include "Mesh.hpp"
 #include "Shader.hpp"
@@ -27,6 +27,7 @@
 #include <string>
 #include <cstring>
 #include <fstream>
+#include <cmath>
 
 
 class Character 
@@ -35,7 +36,12 @@ class Character
         Character();
         Character(GLfloat x,GLfloat y,char* mfile, char*tfile, bool dbug, bool* k,bool dir, Shader* prg);
         void render(GLfloat deltatime);
+        void setState(std::string st,GLfloat deltatime);
         ~Character();
+
+        GLfloat hurt_speed,L,R,B,T,AL,AR,AB,AT;
+        bool direction,hitflag;
+        std::string state;
 
     private:
         void LRBT();
@@ -43,15 +49,14 @@ class Character
         void gforce(GLfloat deltatime);
         bool setDirection(); 
         void stateUpdate(GLfloat deltatime);
-        void setState(std::string st,GLfloat deltatime);
         void setRun(GLfloat deltatime,GLfloat velX);
         void setFall(GLfloat deltatime);
         void setJump(GLfloat deltatime);
         void setAttack(GLfloat deltatime);
-        GLfloat posx,posy,initialVY,finalVY,finalVX,scale,timea,L,R,B,T,AL,AR,AB,AT,ipos,idir,timef;
+        void setHurt(GLfloat deltatime);
+        GLfloat initialVY,finalVY,scale,timea,ipos,timef,posx,posy,idir,finalVX;
         int frame,anim_index;
-        bool debug,direction,*keys,hitFlag;
-        std::string state;
+        bool debug,*keys;
         Shader* program;
         glm::mat4 model;
         Json::Value animation, frames, meta, order;

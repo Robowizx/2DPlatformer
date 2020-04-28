@@ -5,6 +5,8 @@
 #include <Engine/Shader.hpp>
 #include <Engine/Character.hpp>
 
+#include<cmath>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -36,6 +38,48 @@
  char fragmentloc[] = "Shaders/fragment.glsl";
  GLfloat lastime=0.0f,deltatime=0.0f;
 
+void doHits(GLfloat deltatime){
+    if(hero->hitflag == true){
+        if(hero->direction){
+            if((hero->AR>enemy->L && hero->AR<enemy->R)||(hero->AL>enemy->L && hero->AL<enemy->R)){
+                enemy->setState(HURT,deltatime);
+                if(enemy->direction)
+                    enemy->hurt_speed = R_SPEED;
+                else
+                    enemy->hurt_speed = -R_SPEED;    
+            }
+        }
+        else{
+            if((hero->AL<enemy->R && hero->AL>enemy->L)||(hero->AR<enemy->R && hero->AR>enemy->L)){
+                enemy->setState(HURT,deltatime);
+                if(enemy->direction)
+                    enemy->hurt_speed = -R_SPEED;
+                else
+                    enemy->hurt_speed = R_SPEED;    
+            }
+        }
+    }
+    if(enemy->hitflag == true){
+       if(enemy->direction){
+            if((enemy->AR>hero->L && enemy->AR<hero->R)||(enemy->AL>hero->L && enemy->AL<hero->R)){
+                hero->setState(HURT,deltatime);
+                if(hero->direction)
+                    hero->hurt_speed = R_SPEED;
+                else
+                    hero->hurt_speed = -R_SPEED;    
+            }
+        }
+        else{
+            if((enemy->AL<hero->R && enemy->AL>hero->L)||(enemy->AR<hero->R && enemy->AR>hero->L)){
+                hero->setState(HURT,deltatime);
+                if(hero->direction)
+                    hero->hurt_speed = -R_SPEED;
+                else
+                    hero->hurt_speed = R_SPEED;    
+            }
+        } 
+    }
+}
 int main(){
 
     gameWindow = Window(1280,720);
@@ -50,8 +94,8 @@ int main(){
     background->LoadUV(UV,8);
     img = Texture(back);
     img.LoadTexture();
-    hero = new Character(1280.0f,157.0f,metafile1,texfile1,DEBUG, gameWindow.getsKeys(),false,program);
-    enemy = new Character(512.0f,157.0f,metafile2,texfile2,DEBUG,gameWindow.getsKeys(),false,program);
+    hero = new Character(512.0f,157.0f,metafile1,texfile1,DEBUG,gameWindow.getsKeys(),true,program);
+    enemy = new Character(0.0f,157.0f,metafile2,texfile2,DEBUG,nullptr,true,program);
     program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
     program->UseShader();
@@ -77,8 +121,9 @@ int main(){
         background->RenderMesh(GL_TRIANGLE_STRIP);
         glUseProgram(0);
 
-        enemy->render(deltatime);
+        doHits(deltatime);
         hero->render(deltatime);
+        enemy->render(deltatime);
   
         gameWindow.swapBuffers();
     }
