@@ -94,8 +94,8 @@ int main(){
     background->LoadUV(UV,8);
     img = Texture(back);
     img.LoadTexture();
-    hero = new Character(512.0f,157.0f,metafile1,texfile1,DEBUG,gameWindow.getsKeys(),true,program);
-    enemy = new Character(0.0f,157.0f,metafile2,texfile2,DEBUG,nullptr,true,program);
+    hero = new Character(512.0f,157.0f,metafile1,texfile1,DEBUG,nullptr,true,program);
+    enemy = new Character(0.0f,157.0f,metafile2,texfile2,DEBUG,gameWindow.getsKeys(),true,program);
     program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
     program->UseShader();
