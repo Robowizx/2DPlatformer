@@ -41,12 +41,57 @@
  char texfile3[] = "Textures/death/death.png";
  GLfloat lastime=0.0f,deltatime=0.0f;
 
+void doBot(GLfloat deltatime){
+    if(enemy->state == IDLE && enemy->B==157.0f){
+        if(((enemy->R < hero->R) && (!hero->direction))||((enemy->R < hero->L) && hero->direction)){
+            if(!enemy->direction)
+                enemy->setDirection(true);
+            else
+                enemy->setState(RUN,deltatime);    
+        }
+        else if((enemy->R > hero->R && hero->direction)||(enemy->R > hero->L && (!hero->direction)))
+        {
+          if(enemy->direction)
+            enemy->setDirection(true);
+          else
+            enemy->setState(RUN,deltatime);  
+        }
+        else{
+            int random = rand()%100+1;
+            if(random>50)
+                enemy->setState(ATTACK_1,deltatime);
+            else
+                enemy->setState(ATTACK_2,deltatime);    
+        }
+    }
+    else if(enemy->state == RUN){
+        if((enemy->R < hero->R && (!hero->direction))||(enemy->R < hero->L && hero->direction)){
+            if(!enemy->direction){
+                enemy->setState(IDLE,deltatime);
+                enemy->setDirection(true);
+            }
+        }
+        else if ((enemy->R > hero->R && hero->direction)||(enemy->R > hero->L && (!hero->direction))){
+            if(enemy->direction){
+                enemy->setState(IDLE,deltatime);
+                enemy->setDirection(true);
+            }
+        }
+        else{
+            int random = rand()%100+1;
+            if(random>50)
+                enemy->setState(ATTACK_1,deltatime);
+            else
+                enemy->setState(ATTACK_2,deltatime);    
+        }
+    }
+}
 void doHits(GLfloat deltatime){
     if(hero->state == HURT || enemy->state == HURT)
         return;
     if(hero->hitflag == true){
         if(hero->direction){
-            if((hero->AR>enemy->L && hero->AR<enemy->R)||(hero->AL>enemy->L && hero->AL<enemy->R)){
+            if(((hero->AR>enemy->L && hero->AR<enemy->R)||(hero->AL>enemy->L && hero->AL<enemy->R))&& enemy->B < hero->AT){
                 if(hero->state == ATTACK_1)
                     enemy_health-=10;
                 else
@@ -68,7 +113,7 @@ void doHits(GLfloat deltatime){
             }
         }
         else{
-            if((hero->AL<enemy->R && hero->AL>enemy->L)||(hero->AR<enemy->R && hero->AR>enemy->L)){
+            if(((hero->AL<enemy->R && hero->AL>enemy->L)||(hero->AR<enemy->R && hero->AR>enemy->L))&& enemy->B < hero->AT){
                 if(hero->state == ATTACK_1)
                     enemy_health-=10;
                 else
@@ -92,7 +137,7 @@ void doHits(GLfloat deltatime){
     }
     if(enemy->hitflag == true){
        if(enemy->direction){
-            if((enemy->AR>hero->L && enemy->AR<hero->R)||(enemy->AL>hero->L && enemy->AL<hero->R)){
+            if(((enemy->AR>hero->L && enemy->AR<hero->R)||(enemy->AL>hero->L && enemy->AL<hero->R))&& hero->B < enemy->AT){
                 if(enemy->state == ATTACK_1)
                     hero_health-=10;
                 else
@@ -113,7 +158,7 @@ void doHits(GLfloat deltatime){
             }
         }
         else{
-            if((enemy->AL<hero->R && enemy->AL>hero->L)||(enemy->AR<hero->R && enemy->AR>hero->L)){
+            if(((enemy->AL<hero->R && enemy->AL>hero->L)||(enemy->AR<hero->R && enemy->AR>hero->L))&& hero->B < enemy->AT){
                 if(enemy->state == ATTACK_1)
                     hero_health-=10;
                 else
@@ -148,8 +193,8 @@ int main(){
     background->LoadUV(UV,8);
     img = Texture(back);
     img.LoadTexture();
-    hero = new Character(512.0f,157.0f,metafile1,texfile1,metafile3,texfile3,true,DEBUG,nullptr,true,program);
-    enemy = new Character(0.0f,157.0f,metafile2,texfile2,metafile3,texfile3,false,DEBUG,gameWindow.getsKeys(),true,program);
+    hero = new Character(0.0f,157.0f,metafile1,texfile1,metafile3,texfile3,true,DEBUG,gameWindow.getsKeys(),true,program);
+    enemy = new Character(1280.0f,157.0f,metafile2,texfile2,metafile3,texfile3,false,DEBUG,nullptr,true,program);
     program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
     program->UseShader();
@@ -175,8 +220,10 @@ int main(){
         background->RenderMesh(GL_TRIANGLE_STRIP);
         glUseProgram(0);
 
-        if(hero->state != WIN && enemy->state != WIN)
+        if(hero->state != WIN && enemy->state != WIN){
             doHits(deltatime);
+            doBot(deltatime);
+        }    
         enemy->render(deltatime);
         hero->render(deltatime);
   

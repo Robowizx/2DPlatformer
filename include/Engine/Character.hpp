@@ -12,8 +12,8 @@
 #define LOSE "lose"
 #define ANIM_SPEED 0.0667f
 #define GRAVITY -64.0f
-#define R_SPEED 512.0f
-#define RJ_SPEED 256.0f
+#define R_SPEED 480.0f
+#define RJ_SPEED 480.0f
 #define J_SPEED 512.0f
 
 #include "Mesh.hpp"
@@ -38,11 +38,12 @@ class Character
         Character();
         Character(GLfloat x,GLfloat y,char* mfile, char*tfile,char* dmfile,char* dtfile, bool wh, bool dbug, bool* k,bool dir, Shader* prg);
         void render(GLfloat deltatime);
+        bool setDirection(bool manual); 
         void setState(std::string st,GLfloat deltatime);
         void setDeath(GLfloat deltatime);
         ~Character();
 
-        GLfloat hurt_speed,L,R,B,T,AL,AR,AB,AT;
+        GLfloat hurt_speed,L,R,B,T,AL,AR,AB,AT,posx,posy;
         bool direction,hitflag,who;
         int frame;
         std::string state;
@@ -51,7 +52,6 @@ class Character
         void LRBT();
         void ALRBT();
         void gforce(GLfloat deltatime);
-        bool setDirection(); 
         void stateUpdate(GLfloat deltatime);
         void setRun(GLfloat deltatime,GLfloat velX);
         void setFall(GLfloat deltatime);
@@ -59,7 +59,7 @@ class Character
         void setAttack(GLfloat deltatime);
         void setHurt(GLfloat deltatime);
         void doDeath(GLfloat deltatime);
-        GLfloat initialVY,finalVY,scale,timea,ipos,timef,posx,posy,idir,finalVX,iposx,iposy;
+        GLfloat initialVY,finalVY,scale,timea,ipos,timef,idir,finalVX,iposx,iposy;
         char* Dmeta;
         int anim_index;
         bool debug,*keys;
