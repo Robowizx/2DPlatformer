@@ -1,5 +1,5 @@
 #define STB_IMAGE_IMPLEMENTATION
-#define DEBUG true
+#define DEBUG false
 
 #include <Engine/WindowGen.hpp>
 #include <Engine/Shader.hpp>
@@ -13,6 +13,7 @@
 
  Window gameWindow;
  Character *hero,*enemy;
+ int hero_health = 100,enemy_health = 100;
  Mesh* background = new Mesh();
  Texture img;
  Shader* program = new Shader();
@@ -36,46 +37,99 @@
  char back[] = "Textures/level/Battleground2.png";
  char vertexloc[] = "Shaders/vertex.glsl";
  char fragmentloc[] = "Shaders/fragment.glsl";
+ char metafile3[] = "Textures/death/death.json";
+ char texfile3[] = "Textures/death/death.png";
  GLfloat lastime=0.0f,deltatime=0.0f;
 
 void doHits(GLfloat deltatime){
+    if(hero->state == HURT || enemy->state == HURT)
+        return;
     if(hero->hitflag == true){
         if(hero->direction){
             if((hero->AR>enemy->L && hero->AR<enemy->R)||(hero->AL>enemy->L && hero->AL<enemy->R)){
-                enemy->setState(HURT,deltatime);
-                if(enemy->direction)
-                    enemy->hurt_speed = R_SPEED;
+                if(hero->state == ATTACK_1)
+                    enemy_health-=10;
                 else
-                    enemy->hurt_speed = -R_SPEED;    
+                    enemy_health-=50; 
+
+                if(hero_health < 0){
+                    enemy->setDeath(deltatime);
+                    hero->state = WIN;
+                    hero->frame = 32;
+                }
+                else
+                {
+                    enemy->setState(HURT,deltatime);
+                    if(enemy->direction)
+                        enemy->hurt_speed = R_SPEED;
+                    else
+                        enemy->hurt_speed = -R_SPEED;
+                }            
             }
         }
         else{
             if((hero->AL<enemy->R && hero->AL>enemy->L)||(hero->AR<enemy->R && hero->AR>enemy->L)){
-                enemy->setState(HURT,deltatime);
-                if(enemy->direction)
-                    enemy->hurt_speed = -R_SPEED;
+                if(hero->state == ATTACK_1)
+                    enemy_health-=10;
                 else
-                    enemy->hurt_speed = R_SPEED;    
+                    enemy_health-=50;
+
+                if(enemy_health < 0){
+                    enemy->setDeath(deltatime);
+                    hero->state = WIN;
+                    hero->frame = 32;
+                }
+                else
+                {
+                    enemy->setState(HURT,deltatime);
+                    if(enemy->direction)
+                        enemy->hurt_speed = -R_SPEED;
+                    else
+                        enemy->hurt_speed = R_SPEED;
+                }            
             }
         }
     }
     if(enemy->hitflag == true){
        if(enemy->direction){
             if((enemy->AR>hero->L && enemy->AR<hero->R)||(enemy->AL>hero->L && enemy->AL<hero->R)){
-                hero->setState(HURT,deltatime);
-                if(hero->direction)
-                    hero->hurt_speed = R_SPEED;
+                if(enemy->state == ATTACK_1)
+                    hero_health-=10;
                 else
-                    hero->hurt_speed = -R_SPEED;    
+                    hero_health-=50;
+
+                if(hero_health < 0 ){
+                    hero->setDeath(deltatime);
+                    enemy->state = WIN;
+                    enemy->frame = 37;
+                }
+                else{
+                    hero->setState(HURT,deltatime);
+                    if(hero->direction)
+                        hero->hurt_speed = R_SPEED;
+                    else
+                        hero->hurt_speed = -R_SPEED;
+                }            
             }
         }
         else{
             if((enemy->AL<hero->R && enemy->AL>hero->L)||(enemy->AR<hero->R && enemy->AR>hero->L)){
-                hero->setState(HURT,deltatime);
-                if(hero->direction)
-                    hero->hurt_speed = -R_SPEED;
+                if(enemy->state == ATTACK_1)
+                    hero_health-=10;
                 else
-                    hero->hurt_speed = R_SPEED;    
+                    hero_health-=50;
+                if(hero_health < 0){
+                    hero->setDeath(deltatime);
+                    enemy->state = WIN;
+                    enemy->frame = 37;
+                }    
+                else{
+                    hero->setState(HURT,deltatime);
+                    if(hero->direction)
+                        hero->hurt_speed = -R_SPEED;
+                    else
+                        hero->hurt_speed = R_SPEED;
+                }            
             }
         } 
     }
@@ -94,8 +148,8 @@ int main(){
     background->LoadUV(UV,8);
     img = Texture(back);
     img.LoadTexture();
-    hero = new Character(512.0f,157.0f,metafile1,texfile1,DEBUG,nullptr,true,program);
-    enemy = new Character(0.0f,157.0f,metafile2,texfile2,DEBUG,gameWindow.getsKeys(),true,program);
+    hero = new Character(512.0f,157.0f,metafile1,texfile1,metafile3,texfile3,true,DEBUG,nullptr,true,program);
+    enemy = new Character(0.0f,157.0f,metafile2,texfile2,metafile3,texfile3,false,DEBUG,gameWindow.getsKeys(),true,program);
     program->CreateFromFiles(vertexloc,fragmentloc);
     glBindVertexArray(0);
     program->UseShader();
@@ -121,9 +175,10 @@ int main(){
         background->RenderMesh(GL_TRIANGLE_STRIP);
         glUseProgram(0);
 
-        doHits(deltatime);
-        hero->render(deltatime);
+        if(hero->state != WIN && enemy->state != WIN)
+            doHits(deltatime);
         enemy->render(deltatime);
+        hero->render(deltatime);
   
         gameWindow.swapBuffers();
     }

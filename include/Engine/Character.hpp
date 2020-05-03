@@ -8,9 +8,11 @@
 #define FALL "fall"
 #define HURT "hurt"
 #define DEATH "death"
-#define ANIM_SPEED 0.05f
+#define WIN "win"
+#define LOSE "lose"
+#define ANIM_SPEED 0.0667f
 #define GRAVITY -64.0f
-#define R_SPEED 256.0f
+#define R_SPEED 512.0f
 #define RJ_SPEED 256.0f
 #define J_SPEED 512.0f
 
@@ -34,13 +36,15 @@ class Character
 {
     public:
         Character();
-        Character(GLfloat x,GLfloat y,char* mfile, char*tfile, bool dbug, bool* k,bool dir, Shader* prg);
+        Character(GLfloat x,GLfloat y,char* mfile, char*tfile,char* dmfile,char* dtfile, bool wh, bool dbug, bool* k,bool dir, Shader* prg);
         void render(GLfloat deltatime);
         void setState(std::string st,GLfloat deltatime);
+        void setDeath(GLfloat deltatime);
         ~Character();
 
         GLfloat hurt_speed,L,R,B,T,AL,AR,AB,AT;
-        bool direction,hitflag;
+        bool direction,hitflag,who;
+        int frame;
         std::string state;
 
     private:
@@ -54,13 +58,15 @@ class Character
         void setJump(GLfloat deltatime);
         void setAttack(GLfloat deltatime);
         void setHurt(GLfloat deltatime);
-        GLfloat initialVY,finalVY,scale,timea,ipos,timef,posx,posy,idir,finalVX;
-        int frame,anim_index;
+        void doDeath(GLfloat deltatime);
+        GLfloat initialVY,finalVY,scale,timea,ipos,timef,posx,posy,idir,finalVX,iposx,iposy;
+        char* Dmeta;
+        int anim_index;
         bool debug,*keys;
         Shader* program;
         glm::mat4 model;
         Json::Value animation, frames, meta, order;
-        Texture tex;
+        Texture tex, Dtex;
         std::vector<Mesh*> objects;
         GLfloat bound[4] = {0.0f,1280.0f,157.0f,720.0f};
         GLfloat vertices[8] = {
