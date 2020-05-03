@@ -44,6 +44,7 @@
 void doBot(GLfloat deltatime){
     if(delay<0.5f){
         delay+=deltatime;
+        return;
     }
     else
         delay = 0.0f;
