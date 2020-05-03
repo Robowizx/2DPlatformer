@@ -441,7 +441,7 @@ void Character::setDeath(GLfloat deltatime)
     GLfloat DYindex = 2.0f*frames[frame]["DYindex"].asFloat();
     posx+=DXindex;
     posy+=DYindex;
-    model = glm::translate(model,glm::vec3((idir*(DXindex-iposx)),(DYindex-iposy),0.0f));
+    model = glm::translate(model,glm::vec3((idir*DXindex)-iposx,(DYindex-iposy),0.0f));
     model = glm::scale(model,glm::vec3(2.0f,2.0f,1.0f));
            
 }
