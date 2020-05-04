@@ -3,6 +3,7 @@
 Window::Window(){
     width = 800;
     height = 600;
+	pause = false;
 
 	for(size_t i = 0; i < 1024; i++)
 	{
@@ -39,8 +40,9 @@ int Window::initialise()
 	// Allow forward compatiblity
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
+	
 	// Create the window
-	mainWindow = glfwCreateWindow(width, height, "Test Window", NULL, NULL);
+	mainWindow = glfwCreateWindow(width, height, "Battle Game",NULL, NULL);
 	if (!mainWindow)
 	{
 		std::cout<<"Error creating GLFW window!"<<std::endl;
@@ -89,6 +91,8 @@ void Window::handleKeys(GLFWwindow* window, int key, int code, int action, int m
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
+	else if(key == GLFW_KEY_P && action == GLFW_PRESS)
+		theWindow->pause = !theWindow->pause;
 
 	if (key >= 0 && key < 1024)
 	{

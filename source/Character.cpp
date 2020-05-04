@@ -181,6 +181,7 @@ void Character::stateUpdate(GLfloat deltatime)
         doDeath(deltatime);
     }
     else if(state == HURT){
+        hitflag = false;
         setHurt(deltatime);
     }
     else if(state == FALL){
@@ -307,7 +308,6 @@ void Character::setHurt(GLfloat deltatime)
                 else
                     finalVX = (hurt_speed*deltatime)+((posx+diff)-bound[1]);    
                 posx-=((posx+diff)-bound[1]);
-                std::cout<<finalVX<<std::endl;
             }
     }
     finalVX *= idir;
@@ -388,7 +388,7 @@ void Character::setAttack(GLfloat deltatime)
                 ALRBT();
             }    
             else
-                hitflag=false;    
+                hitflag=false;       
             frame = order[anim_index].asInt();
 }
 
@@ -439,8 +439,11 @@ void Character::setDeath(GLfloat deltatime)
     
     GLfloat DXindex = 2.0f*frames[frame]["DXindex"].asFloat();
     GLfloat DYindex = 2.0f*frames[frame]["DYindex"].asFloat();
-    posx+=DXindex;
-    posy+=DYindex;
+    if(direction)
+        posx+=DXindex;
+    else
+        posx=posx-DXindex;
+    posy+=DYindex;    
     model = glm::translate(model,glm::vec3((idir*DXindex)-iposx,(DYindex-iposy),0.0f));
     model = glm::scale(model,glm::vec3(2.0f,2.0f,1.0f));
            

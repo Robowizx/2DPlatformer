@@ -17,6 +17,7 @@ class Window{
         bool getShouldClose(){ return glfwWindowShouldClose(mainWindow); }
 
         bool* getsKeys() { return keys; }
+        bool pause;
 
         void swapBuffers(){ glfwSwapBuffers(mainWindow); }
 
