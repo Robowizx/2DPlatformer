@@ -4,5 +4,8 @@ It's a basic 2D Battle Game where the player controls a character and has to def
   
 # Screenshots
 
-![game screenshot](/screenshots/screenshot_4.png). 
+![game screenshot](/screenshots/screenshot_4.png).
+  
 ![game screenshot2](/screenshots/screenshot_1.png).  
+    
+![game screenshot3](/screenshots/screenshot_2.png).
