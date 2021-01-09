@@ -10,3 +10,11 @@ There are two releases one for Windows and one for MacOS which you can download 
 ![game screenshot2](/screenshots/screenshot_1.png).  
     
 ![game screenshot3](/screenshots/screenshot_2.png).
+
+# Libraries Used
+* openGL
+* GLM
+* GLEW
+* GLFW
+* jsoncpp
+* std_image
